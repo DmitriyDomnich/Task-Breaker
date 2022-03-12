@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "task-manager-43dd0": {
+      "hosting": {
+        "Task-Breaker": [
+          "task-manager-43dd0"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "task-manager-43dd0"
+  }
+}
