@@ -1,0 +1,26 @@
+<ng-container *ngIf="windowWidth >= 768; else small">
+  <button mat-button>
+    <span class="material-icons">bookmarks</span>
+    Tasker
+  </button>
+  <button mat-button>
+    <span class="material-icons">folder</span>
+    My Courses
+  </button>
+  <button mat-button>
+    <span class="material-icons">bolt</span>
+    Skills
+  </button>
+</ng-container>
+<ng-template #small>
+  <button [showSmallNav]="smallNav" mat-icon-button>
+    <ng-template #smallNav>
+      <ul>
+        <li><a class="material-icons">bookmarks</a>Tasker</li>
+        <li><a class="material-icons">folder</a>My Courses</li>
+        <li><a class="material-icons">bolt</a>Skills</li>
+      </ul>
+    </ng-template>
+    <span class="material-icons">menu</span>
+  </button>
+</ng-template>

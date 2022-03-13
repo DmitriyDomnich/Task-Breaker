@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <navigation></navigation>
+  <div class="flex-spacer"></div>
+  <div class="right">
+    <mat-form-field appearance="standard" color="accent">
+      <mat-label>Search for courses, people ...</mat-label>
+      <span matPrefix class="material-icons">search</span>
+      <input spellcheck="false" type="search" autocomplete="off" matInput />
+    </mat-form-field>
+    <button mat-stroked-button [mat-menu-trigger-for]="menu">
+      <span class="material-icons">account_circle</span>
+      User
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Sign Out</button>
+    </mat-menu>
+    <mat-slide-toggle
+      [checked]="getThemeState()"
+      #themeToggler
+      (change)="onThemeChange($event)"
+    >
+      <span class="material-icons">dark_mode</span>
+    </mat-slide-toggle>
+  </div>
+</mat-toolbar>

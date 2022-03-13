@@ -1,0 +1,36 @@
+@use "sass:color";
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: height 500ms ease;
+  li {
+    display: flex;
+    user-select: none;
+    cursor: pointer;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    transition: color 150ms ease;
+    & > .material-icons {
+      color: var(--accent-color);
+    }
+    &:hover {
+      color: color.scale(#fff, $blackness: 15%);
+    }
+    &:not(:last-child) {
+      border-bottom: 2px solid var(--accent-color);
+    }
+  }
+}

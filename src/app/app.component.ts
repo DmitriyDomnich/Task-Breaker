@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import faker from '@faker-js/faker';
-
+import { Component, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +7,11 @@ import faker from '@faker-js/faker';
 })
 export class AppComponent {
   
-  public cat: string;
 
-  constructor(public afs: AngularFireAuth) {
-    this.cat = faker.animal.cat();
+  constructor(
+      private renderer: Renderer2
+  ) {
+    localStorage.getItem('theme') === 'dark' && (this.renderer.selectRootElement('body', true) as HTMLBodyElement).classList.add('dark-theme');
   }
 
-  
-  
 }
