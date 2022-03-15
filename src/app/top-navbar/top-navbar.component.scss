@@ -1,10 +1,23 @@
 mat-toolbar {
-  position: fixed;
+  position: sticky;
+  top: 0;
   box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
+}
+.height-filler {
+  position: relative;
+  z-index: -1;
+}
+button img {
+  display: inline-block;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  margin-right: 0.25rem;
 }
 mat-form-field {
   font-size: 0.9rem;
 }
+
 .right {
   display: flex;
   align-items: center;
@@ -12,4 +25,29 @@ mat-form-field {
 }
 .flex-spacer {
   flex-grow: 1;
+}
+@media (max-width: 600px) {
+  .right {
+    mat-form-field {
+      flex-grow: 0;
+      flex-shrink: 1;
+      width: 0;
+    }
+    #loggedInButton {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .flex-spacer {
+    display: none;
+  }
+  .right {
+    flex-grow: 1;
+    mat-form-field {
+      flex-grow: 1;
+    }
+  }
 }

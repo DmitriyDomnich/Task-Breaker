@@ -8,6 +8,7 @@ ul {
   align-items: center;
   position: fixed;
   left: 0;
+  z-index: 1;
   right: 0;
   background-color: var(--primary-color);
   margin: 0;
@@ -15,6 +16,7 @@ ul {
   overflow: hidden;
   transition: height 500ms ease;
   li {
+    position: relative;
     display: flex;
     user-select: none;
     cursor: pointer;

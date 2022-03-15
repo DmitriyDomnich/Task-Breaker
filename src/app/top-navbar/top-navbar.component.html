@@ -5,17 +5,41 @@
     <mat-form-field appearance="standard" color="accent">
       <mat-label>Search for courses, people ...</mat-label>
       <span matPrefix class="material-icons">search</span>
-      <input spellcheck="false" type="search" autocomplete="off" matInput />
+      <input
+        tabindex="0"
+        spellcheck="false"
+        type="search"
+        autocomplete="off"
+        matInput
+      />
     </mat-form-field>
-    <button mat-stroked-button [mat-menu-trigger-for]="menu">
-      <span class="material-icons">account_circle</span>
-      User
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>Profile</button>
-      <button mat-menu-item>Sign Out</button>
-    </mat-menu>
+    <ng-container *ngIf="auth.user | async as user; else signedOut">
+      <button
+        tabindex="-1"
+        id="loggedInButton"
+        mat-stroked-button
+        [mat-menu-trigger-for]="menu"
+      >
+        <img [src]="user.photoURL" />
+        <span>{{ getUserName(user) }}</span>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button [routerLink]="['/profile', user.uid]" mat-menu-item>
+          Profile
+        </button>
+        <button tabindex="-1" (click)="auth.signOut()" mat-menu-item>
+          Sign Out
+        </button>
+      </mat-menu>
+    </ng-container>
+    <ng-template #signedOut>
+      <button tabindex="-1" mat-stroked-button [routerLink]="['sign-in']">
+        <span class="material-icons">account_circle</span>
+        Sign In
+      </button>
+    </ng-template>
     <mat-slide-toggle
+      tabindex="-1"
       [checked]="getThemeState()"
       #themeToggler
       (change)="onThemeChange($event)"

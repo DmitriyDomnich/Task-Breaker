@@ -1,5 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ShowSmallNavDirective } from './show-small-nav.directive';
 
 @Component({
   selector: 'navigation',
@@ -9,8 +9,9 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   windowWidth: number;
   smallNavShowed = false;
+  @ViewChild('showNav') showNavDirective: ShowSmallNavDirective;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   @HostListener('window:resize', ['$event']) onWindowResize(ev: Event) {
     this.windowWidth = innerWidth;

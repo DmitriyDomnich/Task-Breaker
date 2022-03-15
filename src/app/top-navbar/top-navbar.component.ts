@@ -1,19 +1,26 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { User } from 'firebase/auth';
+import { Observable, share } from 'rxjs';
 
 @Component({
   selector: 'top-navbar',
   templateUrl: './top-navbar.component.html',
-  styleUrls: ['./top-navbar.component.scss']
+  styleUrls: ['./top-navbar.component.scss'],
 })
 export class TopNavbarComponent implements OnInit {
+  user$: Observable<User>;
 
-  constructor(
-    private renderer: Renderer2
-  ) { }
+  constructor(private renderer: Renderer2, public auth: AngularFireAuth) {
+    // this.user$ = auth.user.pipe(share());
+  } //  private store: Store<User>
 
   onThemeChange(slideToggled: MatSlideToggleChange) {
-    const body = this.renderer.selectRootElement('body', true) as HTMLBodyElement;
+    const body = this.renderer.selectRootElement(
+      'body',
+      true
+    ) as HTMLBodyElement;
 
     if (slideToggled.checked) {
       localStorage.setItem('theme', 'dark');
@@ -26,8 +33,10 @@ export class TopNavbarComponent implements OnInit {
   getThemeState(): boolean {
     return localStorage.getItem('theme') === 'light' ? false : true;
   }
-
-  ngOnInit(): void {
+  getUserName(user: any) {
+    return user.displayName ?? user.email;
   }
-
+  ngOnInit(): void {
+    // this.auth.authState.subscribe((user) => console.log(user));
+  }
 }

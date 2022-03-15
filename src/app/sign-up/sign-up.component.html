@@ -1,0 +1,64 @@
+<form
+  spellcheck="false"
+  (submit)="onSubmit($event)"
+  [formGroup]="signUpForm"
+  autocomplete="off"
+>
+  <h1>Sign up for <span>Tasker</span> with email</h1>
+  <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input
+      tabindex="1"
+      placeholder="example@hotmail.com"
+      formControlName="email"
+      autocomplete="off"
+      type="email"
+      matInput
+    />
+    <mat-error *ngIf="email?.invalid && email?.touched">
+      <span *ngFor="let error of getErrorMessages(email)">
+        {{ error }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Make up a password</mat-label>
+    <input
+      maxlength="20"
+      tabindex="2"
+      formControlName="password"
+      type="password"
+      matInput
+    />
+    <mat-error *ngIf="password.invalid && password.touched">
+      <span *ngFor="let error of getErrorMessages(password)">
+        {{ error }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Repeat the entered password</mat-label>
+    <input
+      maxlength="20"
+      tabindex="3"
+      formControlName="repeatedPassword"
+      type="password"
+      matInput
+    />
+    <mat-error *ngIf="repeatedPassword?.invalid && repeatedPassword?.touched">
+      <span *ngFor="let error of getErrorMessages(repeatedPassword)">
+        {{ error }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <div
+    [hidden]="signUpForm.errors?.['creationError']"
+    class="flex-helper"
+  ></div>
+  <div *ngIf="signUpForm.errors?.['creationError']" class="no-account down">
+    Error creating account
+  </div>
+  <button tabindex="4" mat-flat-button color="accent" type="submit">
+    Sign Up
+  </button>
+</form>

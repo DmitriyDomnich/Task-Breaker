@@ -7,6 +7,8 @@
 *,
 *::after,
 *::before {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -20,8 +22,7 @@ body {
   height: 100%;
 }
 body {
-  margin: 0;
-  font-family: "Fira Sans", sans-serif;
+  font-family: "Fira Sans", sans-serif !important;
   color: #fff;
 }
 
@@ -57,4 +58,10 @@ $dark-theme: mat.define-dark-theme(
   --primary-color: #{dark.$primary};
   --accent-color: #{dark.$accent};
   --warn-color: #{dark.$warn};
+}
+
+.no-account {
+  color: var(--warn-color);
+  font-size: 75%;
+  margin-top: -0.5rem;
 }

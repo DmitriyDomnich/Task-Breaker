@@ -1,0 +1,74 @@
+<form [formGroup]="signInForm" (submit)="onSubmit($event)" autocomplete="off">
+  <h1>Sign in using your email</h1>
+  <mat-form-field appearance="standard">
+    <mat-label>Enter your email</mat-label>
+    <input
+      tabindex="1"
+      [formControlName]="'email'"
+      placeholder="example@hotmail.com"
+      required
+      type="email"
+      matInput
+    />
+    <mat-error *ngIf="email?.invalid && email?.touched">
+      <span *ngFor="let error of getErrorMessages(email)">
+        {{ error }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="standard" floatLabel="always">
+    <mat-label>Enter your password</mat-label>
+    <input
+      tabindex="2"
+      maxlength="20"
+      [formControlName]="'password'"
+      required
+      type="password"
+      placeholder="6-20 symbols"
+      matInput
+    />
+    <mat-error *ngIf="password.invalid && password?.touched">
+      <span *ngFor="let error of getErrorMessages(password)">
+        {{ error }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+  <div [hidden]="signInForm.errors?.['account']" class="flex-helper"></div>
+  <div *ngIf="signInForm.errors?.['account']" class="no-account">
+    The user doesn't exist
+  </div>
+  <button
+    [disabled]="signInForm.invalid"
+    mat-flat-button
+    color="primary"
+    type="submit"
+  >
+    Sign In
+  </button>
+  <div class="signWithProviders">
+    <button
+      type="button"
+      (click)="signWithGoogle()"
+      mat-icon-button
+      color="accent"
+    >
+      <i class="bi bi-google"></i>
+    </button>
+    <button
+      [routerLink]="['/sign-up']"
+      type="button"
+      mat-stroked-button
+      color="accent"
+    >
+      Sign Up
+    </button>
+    <button
+      type="button"
+      (click)="signWithGithub()"
+      mat-icon-button
+      color="accent"
+    >
+      <i class="bi bi-github"></i>
+    </button>
+  </div>
+</form>

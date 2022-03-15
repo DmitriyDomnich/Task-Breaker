@@ -9,11 +9,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ShowSmallNavDirective } from './navigation/show-small-nav.directive';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [TopNavbarComponent, NavigationComponent, ShowSmallNavDirective],
+  declarations: [
+    TopNavbarComponent,
+    NavigationComponent,
+    ShowSmallNavDirective,
+  ],
   imports: [
     CommonModule,
+    RouterModule,
     MatButtonModule,
     MatSlideToggleModule,
     MatInputModule,
