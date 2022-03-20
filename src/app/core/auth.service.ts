@@ -17,7 +17,13 @@ export class AuthService {
   async signInWithEmailAndPassword(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password);
   }
-  signUpWithEmailAndPassword(email: string, password: string) {
-    return this.auth.createUserWithEmailAndPassword(email, password);
+  async signUpWithEmailAndPassword(email: string, password: string) {
+    const userCredent = await this.auth.createUserWithEmailAndPassword(
+      email,
+      password
+    );
+    await userCredent.user?.updateProfile({
+      photoURL: '../../assets/images/new_user.png',
+    });
   }
 }

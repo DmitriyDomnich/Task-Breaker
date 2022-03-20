@@ -1,0 +1,11 @@
+<mat-chip-list (change)="onChipListChanged($event)" [multiple]="true">
+  <mat-chip
+    color="accent"
+    *ngFor="let sphere of spheres$ | async"
+    #chip="matChip"
+    (click)="toggleChip(chip)"
+  >
+    {{ sphere }}
+  </mat-chip>
+</mat-chip-list>
+<courses [isPublic]="true"> </courses>

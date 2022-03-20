@@ -10,6 +10,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Fira Sans", sans-serif;
 }
 
 :root {
@@ -22,7 +23,6 @@ body {
   height: 100%;
 }
 body {
-  font-family: "Fira Sans", sans-serif !important;
   color: #fff;
 }
 
@@ -52,7 +52,10 @@ $dark-theme: mat.define-dark-theme(
     ),
   )
 );
-
+.material-icons,
+.material-icons-outlined {
+  font-family: "Material Icons", sans-serif;
+}
 .dark-theme {
   @include mat.all-component-themes($dark-theme);
   --primary-color: #{dark.$primary};
@@ -64,4 +67,17 @@ $dark-theme: mat.define-dark-theme(
   color: var(--warn-color);
   font-size: 75%;
   margin-top: -0.5rem;
+}
+
+.stars {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 22px;
+  color: #fff;
+  word-spacing: -3px;
+  & > span {
+    position: relative;
+    bottom: 3px;
+  }
 }

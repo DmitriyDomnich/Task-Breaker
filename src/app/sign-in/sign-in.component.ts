@@ -17,6 +17,7 @@ import { FormErrors } from '../shared/form-errors';
 })
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,

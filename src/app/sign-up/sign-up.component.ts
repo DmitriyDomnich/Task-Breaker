@@ -17,6 +17,7 @@ import { samePasswordValidator } from './same-password.validator';
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,16 +40,12 @@ export class SignUpComponent implements OnInit {
     submitEv.preventDefault();
     if (this.signUpForm.valid) {
       try {
-        const userCredent = await this.auth.signUpWithEmailAndPassword(
+        await this.auth.signUpWithEmailAndPassword(
           this.email.value,
           this.password.value
         );
-        await userCredent.user?.updateProfile({
-          photoURL: '../../assets/images/new_user.png',
-        });
         this.router.navigateByUrl('');
       } catch (error: any) {
-        console.dir(error);
         this.signUpForm.setErrors({
           creationError: true,
         });

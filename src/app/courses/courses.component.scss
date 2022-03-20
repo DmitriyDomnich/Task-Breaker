@@ -1,0 +1,9 @@
+:host {
+  margin-top: 1.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-auto-rows: 200px;
+
+  gap: 1.25rem;
+}

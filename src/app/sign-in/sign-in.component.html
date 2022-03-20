@@ -6,7 +6,6 @@
       tabindex="1"
       [formControlName]="'email'"
       placeholder="example@hotmail.com"
-      required
       type="email"
       matInput
     />
@@ -22,11 +21,26 @@
       tabindex="2"
       maxlength="20"
       [formControlName]="'password'"
-      required
-      type="password"
+      [type]="showPassword ? 'text' : 'password'"
       placeholder="6-20 symbols"
       matInput
     />
+    <button
+      type="button"
+      (click)="showPassword = !showPassword"
+      matSuffix
+      mat-icon-button
+    >
+      <span
+        class="material-icons-outlined"
+        *ngIf="!showPassword; else passwordShowed"
+      >
+        visibility
+      </span>
+      <ng-template #passwordShowed>
+        <span class="material-icons-outlined"> visibility_off </span>
+      </ng-template>
+    </button>
     <mat-error *ngIf="password.invalid && password?.touched">
       <span *ngFor="let error of getErrorMessages(password)">
         {{ error }}

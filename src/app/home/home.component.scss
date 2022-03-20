@@ -1,0 +1,13 @@
+:host {
+  // display: block;
+  margin: 1.5rem;
+  display: flex;
+  flex-flow: column;
+}
+mat-chip-list {
+  align-self: center;
+  mat-chip {
+    user-select: none;
+    cursor: pointer;
+  }
+}

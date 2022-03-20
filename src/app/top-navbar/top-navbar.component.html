@@ -18,12 +18,12 @@
         tabindex="-1"
         id="loggedInButton"
         mat-stroked-button
-        [mat-menu-trigger-for]="menu"
+        [matMenuTriggerFor]="menu"
       >
         <img [src]="user.photoURL" />
         <span>{{ getUserName(user) }}</span>
       </button>
-      <mat-menu #menu="matMenu">
+      <mat-menu xPosition="after" yPosition="below" #menu="matMenu">
         <button [routerLink]="['/profile', user.uid]" mat-menu-item>
           Profile
         </button>

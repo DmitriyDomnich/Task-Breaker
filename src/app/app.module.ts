@@ -9,8 +9,11 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopNavbarModule } from './top-navbar/top-navbar.module';
-import { EffectsModule } from '@ngrx/effects';
+import { HomeModule } from './home/home.module';
 import { StoreModule } from '@ngrx/store';
+import { publicCoursesReducer } from './store/public-courses.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { PublicCoursesEffects } from './store/public-courses.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,9 +25,13 @@ import { StoreModule } from '@ngrx/store';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFirestoreModule.enablePersistence(),
+    EffectsModule.forRoot([PublicCoursesEffects]),
+    StoreModule.forRoot({
+      publicCourses: publicCoursesReducer,
+      // privateCourses:
+    }),
     TopNavbarModule,
-    // StoreModule.forRoot(),
-    // EffectsModule.forRoot([]),
+    HomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

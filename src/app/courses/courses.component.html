@@ -1,0 +1,8 @@
+<ng-container *ngIf="courses$ | async as courses">
+  <course-card
+    [stars]="course.stars"
+    [course]="course"
+    *ngFor="let course of getCoursesFromCollection(courses)"
+  >
+  </course-card>
+</ng-container>

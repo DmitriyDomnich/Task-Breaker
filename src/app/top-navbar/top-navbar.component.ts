@@ -2,7 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { User } from 'firebase/auth';
-import { Observable, share } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'top-navbar',
@@ -12,9 +12,7 @@ import { Observable, share } from 'rxjs';
 export class TopNavbarComponent implements OnInit {
   user$: Observable<User>;
 
-  constructor(private renderer: Renderer2, public auth: AngularFireAuth) {
-    // this.user$ = auth.user.pipe(share());
-  } //  private store: Store<User>
+  constructor(private renderer: Renderer2, public auth: AngularFireAuth) {}
 
   onThemeChange(slideToggled: MatSlideToggleChange) {
     const body = this.renderer.selectRootElement(
@@ -36,7 +34,5 @@ export class TopNavbarComponent implements OnInit {
   getUserName(user: any) {
     return user.displayName ?? user.email;
   }
-  ngOnInit(): void {
-    // this.auth.authState.subscribe((user) => console.log(user));
-  }
+  ngOnInit(): void {}
 }

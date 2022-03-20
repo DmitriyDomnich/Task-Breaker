@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProfileComponent } from './profile/profile.component';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: HomeComponent,
+  },
   {
     path: 'sign-in',
     loadChildren: () =>
@@ -11,8 +16,9 @@ const routes: Routes = [
   },
   {
     path: 'profile/:uid',
-    component: ProfileComponent,
     canActivate: [AngularFireAuthGuard],
+    loadChildren: () =>
+      import('./profile/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: 'sign-up',
