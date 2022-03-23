@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PublicCoursesActions } from 'src/app/store/courses.actions';
 import { selectPublicFilteredCourses } from 'src/app/store/courses.selectors';
+import { PrivateCourse, PublicCourse } from '../shared/models/course.model';
 import { AppState } from '../store/models/app.state';
 import { CoursesCollection } from '../store/models/courses-collection.model';
 
@@ -16,15 +17,9 @@ export class CoursesComponent implements OnInit {
   @Input() isPublic: boolean;
   constructor(private store: Store<AppState>) {}
 
-  ngOnInit(): void {
-    this.store.dispatch({
-      type: PublicCoursesActions.loadAllTypeCourses.type,
-      courseType: this.isPublic,
-      amount: 1,
-    });
-  }
+  ngOnInit(): void {}
   getCoursesFromCollection(
-    coursesCollections: CoursesCollection[]
+    coursesCollections: CoursesCollection<PublicCourse>[]
   ): Array<any> {
     return coursesCollections
       .map((courseCollection) => courseCollection.courses)

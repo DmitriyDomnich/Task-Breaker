@@ -13,9 +13,10 @@
   cursor: pointer;
 
   .course-name {
+    display: block;
     color: #fff;
     position: absolute;
-
+    text-overflow: ellipsis;
     padding-bottom: inherit;
     padding-left: inherit;
     bottom: 0;

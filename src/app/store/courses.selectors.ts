@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { PublicCourse } from '../shared/models/course.model';
 import { CoursesCollection } from './models/courses-collection.model';
 import { PrivateCoursesState } from './private-courses.reducer';
 import { PublicCoursesState } from './public-courses.reducer';
@@ -9,6 +10,11 @@ export const selectPublicCourses =
   createFeatureSelector<PublicCoursesState>(publicCoursesKey);
 export const selectPrivateCourses =
   createFeatureSelector<PrivateCoursesState>(privateCoursesKey);
+
+export const selectAllSpheres = createSelector(
+  selectPublicCourses,
+  ({ allSpheres }) => allSpheres
+);
 
 export const selectPublicFilteredCourses = createSelector(
   selectPublicCourses,
@@ -22,6 +28,6 @@ export const selectPublicFilteredCourses = createSelector(
           (courseCollection) => courseCollection.sphereName === curr.trim()
         )
       );
-    }, Array<CoursesCollection>());
+    }, Array<CoursesCollection<PublicCourse>>());
   }
 );

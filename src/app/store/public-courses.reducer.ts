@@ -1,15 +1,18 @@
 import { createReducer, on } from '@ngrx/store';
+import { PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from './courses.actions';
 import { CoursesCollection } from './models/courses-collection.model';
 
 export interface PublicCoursesState {
-  courses: Array<CoursesCollection>;
+  courses: Array<CoursesCollection<PublicCourse>>;
   chosenSpheres: Array<string>;
+  allSpheres: Array<string>;
 }
 
 const initialState: PublicCoursesState = {
-  chosenSpheres: [],
   courses: [],
+  allSpheres: [],
+  chosenSpheres: [],
 };
 
 export const publicCoursesReducer = createReducer(
@@ -23,32 +26,42 @@ export const publicCoursesReducer = createReducer(
   on(
     PublicCoursesActions.loadCoursesBySphereSuccess,
     (state, { courses, sphereName }) => {
+      if (!courses.length) {
+        return state;
+      }
       return {
         ...state,
         courses: state.courses.reduce((acc, curr) => {
-          console.log(acc);
           if (curr.sphereName === sphereName) {
-            const courseCollection: CoursesCollection = {
+            const courseCollection: CoursesCollection<PublicCourse> = {
               ...curr,
               courses: curr.courses.concat(courses),
-              offset: curr.offset + 3,
+              lastStarsValue: courses[courses.length - 1].stars,
             };
-            console.log(courseCollection);
             return acc.concat(courseCollection);
           }
           return acc.concat(curr);
-        }, Array<CoursesCollection>()),
+        }, Array<CoursesCollection<PublicCourse>>()),
       };
     }
   ),
-  on(PublicCoursesActions.loadAllTypeCoursesSuccess, (state, { courses }) => {
+  on(PublicCoursesActions.loadAllSpheresSuccess, (state, { spheres }) => {
     return {
       ...state,
-      courses: state.courses.concat({
-        courses: courses,
-        offset: 1,
-        sphereName: courses[0].sphere,
-      }),
+      allSpheres: spheres,
     };
-  })
+  }),
+  on(
+    PublicCoursesActions.loadAllTypeCoursesSuccess,
+    (state, { courses, lastStarsValue }) => {
+      return {
+        ...state,
+        courses: state.courses.concat({
+          courses: courses,
+          lastStarsValue,
+          sphereName: courses[0].sphere,
+        }),
+      };
+    }
+  )
 );

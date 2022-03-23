@@ -1,7 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { orderBy, QueryDocumentSnapshot } from 'firebase/firestore';
 import {
   filter,
+  forkJoin,
+  from,
+  lastValueFrom,
   map,
   mergeAll,
   mergeMap,
@@ -20,22 +24,23 @@ import { Course, PublicCourse } from '../shared/models/course.model';
 export class CoursesService {
   constructor(private db: AngularFirestore) {}
 
-  getCoursesByFilteredSphere(sphere: string, offset: number = 0) {
+  getCoursesByFilteredSphere(sphere: string, lastStarsValue: number) {
     // todo: Figure pagination
-    console.log(sphere, offset);
+    console.log(lastStarsValue);
     return this.db
       .collection<Course>('courses', (ref) =>
         ref
           .where('sphere', '==', sphere)
           .where('public', '==', true)
-          .orderBy('name')
-          .startAt(offset)
-          .limit(3)
+          .orderBy('stars', 'desc')
+          .startAfter(lastStarsValue)
+          .limit(1)
       )
       .get()
       .pipe(
         mergeMap((snapshot) => snapshot.docs.map((doc) => doc.data())),
-        toArray()
+        toArray(),
+        tap((val) => console.log('SERVICE', val))
       );
   }
 
@@ -48,18 +53,28 @@ export class CoursesService {
         mergeAll(),
         mergeMap((sphere) =>
           this.db
-            .collection<Course>('courses', (ref) =>
+            .collection<PublicCourse>('courses', (ref) =>
               ref
                 .where('sphere', '==', sphere)
                 .where('public', '==', type)
+                .orderBy('stars', 'desc')
                 .limit(amount)
             )
             .get()
             .pipe(
-              map((val) => val.docs.map((val) => val.data())),
-              filter((val) => !!val.length)
+              filter((val) => !!val.docs.length),
+              map((val) => ({
+                courses: val.docs.map((doc) => doc.data()),
+                lastStarsValue: val.docs[val.docs.length - 1].data().stars,
+              }))
             )
         )
       );
+  }
+  getAllSpheres() {
+    return this.db
+      .collection<string>('spheres')
+      .get()
+      .pipe(map((val) => val.docs.map((doc) => doc.id)));
   }
 }

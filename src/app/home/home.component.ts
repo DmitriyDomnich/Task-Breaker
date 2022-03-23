@@ -1,10 +1,12 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { MatChip, MatChipListChange } from '@angular/material/chips';
 import { Store } from '@ngrx/store';
-import { last, map, Observable, switchMap, take, tap } from 'rxjs';
+import { first, last, map, Observable, switchMap, take, tap } from 'rxjs';
 import { PublicCoursesActions } from '../store/courses.actions';
-import { selectPublicCourses } from '../store/courses.selectors';
+import {
+  selectAllSpheres,
+  selectPublicCourses,
+} from '../store/courses.selectors';
 import { AppState } from '../store/models/app.state';
 
 @Component({
@@ -13,15 +15,11 @@ import { AppState } from '../store/models/app.state';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  @ViewChildren('matChip') chips: QueryList<MatChip>;
-  spheres$: Observable<string[]>;
+  spheres$: Observable<string[]> = this.store.select(selectAllSpheres);
   filteredSpheres = new Set<string>();
 
-  constructor(private db: AngularFirestore, private store: Store<AppState>) {
-    this.spheres$ = db
-      .collection<string[]>('spheres')
-      .get()
-      .pipe(map((sphereDocs) => sphereDocs.docs.map((doc) => doc.id)));
+  constructor(private store: Store<AppState>) {
+    store.dispatch({ type: PublicCoursesActions.loadAllSpheres.type });
   }
 
   onChipListChanged({ value: spheresOn }: MatChipListChange) {
@@ -43,9 +41,9 @@ export class HomeComponent implements OnInit {
           tap((coursesCollections) =>
             this.store.dispatch(
               PublicCoursesActions.loadCoursesBySphere({
-                offset: coursesCollections.courses.find(
+                lastStarsValue: coursesCollections.courses.find(
                   ({ sphereName }) => sphereName === lastSphere
-                )!.offset,
+                )!.lastStarsValue,
                 sphereName: lastSphere,
               })
             )
@@ -54,7 +52,6 @@ export class HomeComponent implements OnInit {
         .subscribe();
     }
   }
-
   toggleChip(chip: MatChip) {
     chip.toggleSelected(true);
   }

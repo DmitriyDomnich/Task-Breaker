@@ -11,15 +11,27 @@ export namespace PublicCoursesActions {
   );
   export const loadAllTypeCoursesSuccess = createAction(
     'Load Courses Success',
-    props<{ courses: PublicCourse[] }>()
+    props<{
+      courses: PublicCourse[];
+      lastStarsValue: number;
+    }>()
   );
   export const loadAllTypeCoursesError = createAction('Load Courses Error');
+
+  export const loadAllSpheres = createAction('Load Spheres');
+
+  export const loadAllSpheresSuccess = createAction(
+    'Load Spheres Success',
+    props<{
+      spheres: string[];
+    }>()
+  );
 
   export const loadCoursesBySphere = createAction(
     'Load Courses By Sphere',
     props<{
       sphereName: string;
-      offset: number;
+      lastStarsValue: number;
     }>()
   );
   export const loadCoursesBySphereSuccess = createAction(

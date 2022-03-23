@@ -1,7 +1,7 @@
 import { Course } from 'src/app/shared/models/course.model';
 
-export interface CoursesCollection {
-  offset: number;
+export interface CoursesCollection<T extends Course> {
+  lastStarsValue: number;
   sphereName: string;
-  courses: Array<Course>;
+  courses: Array<T>;
 }
