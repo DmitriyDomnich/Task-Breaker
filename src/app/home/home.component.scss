@@ -11,3 +11,8 @@ mat-chip-list {
     cursor: pointer;
   }
 }
+button[mat-fab] {
+  font-size: 26px;
+  margin-top: 0.75rem;
+  align-self: center;
+}

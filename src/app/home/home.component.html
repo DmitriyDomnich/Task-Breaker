@@ -9,3 +9,11 @@
   </mat-chip>
 </mat-chip-list>
 <courses [isPublic]="true"> </courses>
+<button
+  (click)="loadMoreSpheres()"
+  *ngIf="(chosenSpheres$ | async)!.chosenSpheres.length"
+  mat-fab
+  color="primary"
+>
+  <span class="material-icons-outlined"> add </span>
+</button>

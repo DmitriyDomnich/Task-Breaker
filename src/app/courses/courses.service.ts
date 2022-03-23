@@ -25,8 +25,7 @@ export class CoursesService {
   constructor(private db: AngularFirestore) {}
 
   getCoursesByFilteredSphere(sphere: string, lastStarsValue: number) {
-    // todo: Figure pagination
-    console.log(lastStarsValue);
+    console.log(sphere, lastStarsValue); // todo: remove this
     return this.db
       .collection<Course>('courses', (ref) =>
         ref
@@ -40,7 +39,7 @@ export class CoursesService {
       .pipe(
         mergeMap((snapshot) => snapshot.docs.map((doc) => doc.data())),
         toArray(),
-        tap((val) => console.log('SERVICE', val))
+        tap((val) => console.log('SERVICE', val)) // todo: remove this
       );
   }
 

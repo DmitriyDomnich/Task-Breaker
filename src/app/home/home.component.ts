@@ -1,13 +1,21 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatChip, MatChipListChange } from '@angular/material/chips';
 import { Store } from '@ngrx/store';
-import { first, last, map, Observable, switchMap, take, tap } from 'rxjs';
+import { Observable, take, tap } from 'rxjs';
+import { PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from '../store/courses.actions';
 import {
   selectAllSpheres,
+  selectChosenSpheres,
   selectPublicCourses,
 } from '../store/courses.selectors';
 import { AppState } from '../store/models/app.state';
+import { CoursesCollection } from '../store/models/courses-collection.model';
+
+type ChosenSpheresWithCourses = {
+  chosenSpheres: string[];
+  courses: CoursesCollection<PublicCourse>[];
+};
 
 @Component({
   selector: 'home',
@@ -16,6 +24,8 @@ import { AppState } from '../store/models/app.state';
 })
 export class HomeComponent implements OnInit {
   spheres$: Observable<string[]> = this.store.select(selectAllSpheres);
+  chosenSpheres$: Observable<ChosenSpheresWithCourses> =
+    this.store.select(selectChosenSpheres);
   filteredSpheres = new Set<string>();
 
   constructor(private store: Store<AppState>) {
@@ -54,6 +64,25 @@ export class HomeComponent implements OnInit {
   }
   toggleChip(chip: MatChip) {
     chip.toggleSelected(true);
+  }
+  loadMoreSpheres() {
+    this.chosenSpheres$
+      .pipe(
+        take(1),
+        tap(({ courses }) => console.log(courses)), // todo: remove this
+        tap(({ chosenSpheres, courses }) =>
+          chosenSpheres.forEach((sphereName) => {
+            this.store.dispatch({
+              type: PublicCoursesActions.loadCoursesBySphere.type,
+              sphereName: sphereName.trim(),
+              lastStarsValue: courses.find(
+                (course) => course.sphereName === sphereName.trim()
+              )?.lastStarsValue,
+            });
+          })
+        )
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {}
