@@ -17,6 +17,7 @@ import {
   toArray,
 } from 'rxjs';
 import { Course, PublicCourse } from '../shared/models/course.model';
+import { Sphere } from '../store/models/sphere.model';
 
 @Injectable({
   providedIn: 'root',
@@ -72,8 +73,15 @@ export class CoursesService {
   }
   getAllSpheres() {
     return this.db
-      .collection<string>('spheres')
+      .collection<Sphere>('spheres')
       .get()
-      .pipe(map((val) => val.docs.map((doc) => doc.id)));
+      .pipe(
+        map((val) => {
+          return val.docs.map((doc) => ({
+            name: doc.id,
+            iconURL: doc.data().iconURL,
+          }));
+        })
+      );
   }
 }

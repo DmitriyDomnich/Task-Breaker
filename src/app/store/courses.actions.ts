@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { PublicCourse } from '../shared/models/course.model';
+import { Sphere } from './models/sphere.model';
 
 export namespace PublicCoursesActions {
   export const loadAllTypeCourses = createAction(
@@ -23,7 +24,7 @@ export namespace PublicCoursesActions {
   export const loadAllSpheresSuccess = createAction(
     'Load Spheres Success',
     props<{
-      spheres: string[];
+      spheres: Sphere[];
     }>()
   );
 

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Course } from 'src/app/shared/models/course.model';
+import { Course, PublicCourse } from 'src/app/shared/models/course.model';
 
 @Component({
   selector: 'course-card',
@@ -7,7 +7,7 @@ import { Course } from 'src/app/shared/models/course.model';
   styleUrls: ['./course-card.component.scss'],
 })
 export class CourseCardComponent implements OnInit {
-  @Input() course: Course;
+  @Input() course: PublicCourse;
 
   @HostBinding('style.backgroundImage') get backgroundImage() {
     return `linear-gradient(

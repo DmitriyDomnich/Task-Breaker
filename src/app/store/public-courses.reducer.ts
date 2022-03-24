@@ -2,11 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import { PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from './courses.actions';
 import { CoursesCollection } from './models/courses-collection.model';
+import { Sphere } from './models/sphere.model';
 
 export interface PublicCoursesState {
   courses: Array<CoursesCollection<PublicCourse>>;
   chosenSpheres: Array<string>;
-  allSpheres: Array<string>;
+  allSpheres: Array<Sphere>;
 }
 
 const initialState: PublicCoursesState = {

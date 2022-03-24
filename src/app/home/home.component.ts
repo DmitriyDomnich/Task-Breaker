@@ -6,11 +6,12 @@ import { PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from '../store/courses.actions';
 import {
   selectAllSpheres,
-  selectChosenSpheres,
+  selectChosenSpheresWithCourses,
   selectPublicCourses,
 } from '../store/courses.selectors';
 import { AppState } from '../store/models/app.state';
 import { CoursesCollection } from '../store/models/courses-collection.model';
+import { Sphere } from '../store/models/sphere.model';
 
 type ChosenSpheresWithCourses = {
   chosenSpheres: string[];
@@ -23,10 +24,11 @@ type ChosenSpheresWithCourses = {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  spheres$: Observable<string[]> = this.store.select(selectAllSpheres);
-  chosenSpheres$: Observable<ChosenSpheresWithCourses> =
-    this.store.select(selectChosenSpheres);
-  filteredSpheres = new Set<string>();
+  spheres$: Observable<Sphere[]> = this.store.select(selectAllSpheres);
+  chosenSpheres$: Observable<ChosenSpheresWithCourses> = this.store.select(
+    selectChosenSpheresWithCourses
+  );
+  filteredSpheres = new Set<string>(); //todo: gotta rework this
 
   constructor(private store: Store<AppState>) {
     store.dispatch({ type: PublicCoursesActions.loadAllSpheres.type });

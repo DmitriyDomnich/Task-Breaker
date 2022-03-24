@@ -15,7 +15,7 @@ export const selectAllSpheres = createSelector(
   selectPublicCourses,
   ({ allSpheres }) => allSpheres
 );
-export const selectChosenSpheres = createSelector(
+export const selectChosenSpheresWithCourses = createSelector(
   selectPublicCourses,
   ({ chosenSpheres, courses }) => ({ chosenSpheres, courses })
 );
