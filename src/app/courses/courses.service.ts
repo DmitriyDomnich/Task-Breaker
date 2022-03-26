@@ -1,21 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { orderBy, QueryDocumentSnapshot } from 'firebase/firestore';
-import {
-  filter,
-  forkJoin,
-  from,
-  lastValueFrom,
-  map,
-  mergeAll,
-  mergeMap,
-  of,
-  skip,
-  switchMap,
-  take,
-  tap,
-  toArray,
-} from 'rxjs';
+import { QuerySnapshot } from 'firebase/firestore';
+import { filter, map, mergeAll, mergeMap, tap, toArray } from 'rxjs';
 import { Course, PublicCourse } from '../shared/models/course.model';
 import { Sphere } from '../store/models/sphere.model';
 
@@ -38,7 +24,7 @@ export class CoursesService {
       )
       .get()
       .pipe(
-        mergeMap((snapshot) => snapshot.docs.map((doc) => doc.data())),
+        mergeMap((snapshot) => this.getCoursesFromSnapshot(snapshot)),
         toArray(),
         tap((val) => console.log('SERVICE', val)) // todo: remove this
       );
@@ -63,9 +49,10 @@ export class CoursesService {
             .get()
             .pipe(
               filter((val) => !!val.docs.length),
-              map((val) => ({
-                courses: val.docs.map((doc) => doc.data()),
-                lastStarsValue: val.docs[val.docs.length - 1].data().stars,
+              map((snapshot) => ({
+                courses: this.getCoursesFromSnapshot(snapshot),
+                lastStarsValue:
+                  snapshot.docs[snapshot.docs.length - 1].data().stars,
               }))
             )
         )
@@ -83,5 +70,8 @@ export class CoursesService {
           }));
         })
       );
+  }
+  private getCoursesFromSnapshot(snapshot: any) {
+    return snapshot.docs.map((doc: any) => ({ ...doc.data(), id: doc.id }));
   }
 }

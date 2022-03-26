@@ -8,8 +8,9 @@
     {{ sphere.name }}
   </mat-chip>
 </mat-chip-list>
-<courses [isPublic]="true"> </courses>
+<courses [selector]="publicCoursesSelector"> </courses>
 <button
+  [disabled]="loadTimer"
   (click)="loadMoreSpheres()"
   *ngIf="(chosenSpheres$ | async)!.chosenSpheres.length"
   mat-fab
@@ -17,3 +18,7 @@
 >
   <span class="material-icons-outlined"> add </span>
 </button>
+<span *ngIf="error$ | async as errMessage" class="error">
+  {{ errMessage }}
+</span>
+<div #scrollPoint class="scroll-helper"></div>

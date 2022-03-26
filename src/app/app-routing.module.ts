@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home-page/home.component';
 
 const routes: Routes = [
   {
@@ -12,18 +12,30 @@ const routes: Routes = [
   {
     path: 'sign-in',
     loadChildren: () =>
-      import('./sign-in/sign-in.module').then((m) => m.SignInModule),
+      import('./sign-in-page/sign-in.module').then((m) => m.SignInModule),
   },
   {
     path: 'profile/:uid',
-    canActivate: [AngularFireAuthGuard],
     loadChildren: () =>
-      import('./profile/profile.module').then((m) => m.ProfileModule),
+      import('./profile-page/profile.module').then((m) => m.ProfileModule),
   },
   {
     path: 'sign-up',
     loadChildren: () =>
-      import('./sign-up/sign-up.module').then((m) => m.SignUpModule),
+      import('./sign-up-page/sign-up.module').then((m) => m.SignUpModule),
+  },
+  {
+    path: 'c',
+    loadChildren: () =>
+      import('./course-page/course.module').then((m) => m.CourseModule),
+  },
+  {
+    path: 'user-courses',
+    canActivate: [AngularFireAuthGuard],
+    loadChildren: () =>
+      import('./user-courses-page/user-courses.module').then(
+        (m) => m.UserCoursesModule
+      ),
   },
 ];
 

@@ -1,0 +1,14 @@
+<ng-container *ngIf="course$ | async as course">
+  <header>
+    <section [courseCover]="course.coverURL"></section>
+    <div class="info">
+      <ng-container
+        position="right"
+        [fontSize]="34"
+        [courseSphere]="course.sphere"
+      ></ng-container>
+      <h1>{{ course.name }}</h1>
+    </div>
+  </header>
+  {{ (course$ | async)!.id }}
+</ng-container>

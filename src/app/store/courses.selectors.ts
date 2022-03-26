@@ -11,6 +11,11 @@ export const selectPublicCourses =
 export const selectPrivateCourses =
   createFeatureSelector<PrivateCoursesState>(privateCoursesKey);
 
+export const selectError = createSelector(
+  selectPublicCourses,
+  ({ error }) => error?.message
+);
+
 export const selectAllSpheres = createSelector(
   selectPublicCourses,
   ({ allSpheres }) => allSpheres
@@ -19,6 +24,14 @@ export const selectChosenSpheresWithCourses = createSelector(
   selectPublicCourses,
   ({ chosenSpheres, courses }) => ({ chosenSpheres, courses })
 );
+export const selectCourse = (courseId: string) =>
+  createSelector(selectPublicCourses, ({ courses }) => {
+    return courses
+      .reduce((acc, curr) => {
+        return acc!.concat(curr.courses);
+      }, Array<PublicCourse>())
+      .find((val) => val.id === courseId)!;
+  });
 
 export const selectPublicFilteredCourses = createSelector(
   selectPublicCourses,

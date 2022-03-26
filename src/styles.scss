@@ -1,7 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 @use "dark-color-variables" as dark;
 @use "light-color-variables" as light;
+@use "directives" as directives;
 @import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
 
 *,

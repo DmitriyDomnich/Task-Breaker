@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { CoursesComponent } from './courses.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { StarsDirective } from './stars.directive';
-import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [CoursesComponent, CourseCardComponent, StarsDirective],
-  imports: [CommonModule, MatIconModule, HttpClientModule],
+  imports: [CommonModule, SharedModule],
   exports: [CoursesComponent],
 })
 export class CoursesModule {}

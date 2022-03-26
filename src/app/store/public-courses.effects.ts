@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { catchError, map, mergeMap, of } from 'rxjs';
 import { CoursesService } from '../courses/courses.service';
 import { PublicCoursesActions } from './courses.actions';
+import { AppState } from './models/app.state';
 
 @Injectable()
 export class PublicCoursesEffects {
@@ -13,11 +15,22 @@ export class PublicCoursesEffects {
         this.coursesService
           .getCoursesByFilteredSphere(sphereName, lastStarsValue)
           .pipe(
-            map((courses) => ({
-              type: PublicCoursesActions.loadCoursesBySphereSuccess.type,
-              courses: courses,
-              sphereName: sphereName,
-            }))
+            map((courses) => {
+              if (!courses.length) {
+                throw new Error(`No more courses for ${sphereName} category.`);
+              }
+              return {
+                type: PublicCoursesActions.loadCoursesBySphereSuccess.type,
+                courses: courses,
+                sphereName: sphereName,
+              };
+            }),
+            catchError((err: Error) => {
+              return of({
+                type: PublicCoursesActions.loadCoursesBySphereError.type,
+                message: err.message,
+              });
+            })
           )
       )
     )
@@ -26,7 +39,7 @@ export class PublicCoursesEffects {
   loadSpheres$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PublicCoursesActions.loadAllSpheres),
-      mergeMap((val) =>
+      mergeMap((_) =>
         this.coursesService.getAllSpheres().pipe(
           map((spheres) => ({
             type: PublicCoursesActions.loadAllSpheresSuccess.type,
@@ -58,6 +71,7 @@ export class PublicCoursesEffects {
 
   constructor(
     private coursesService: CoursesService,
-    private actions$: Actions
+    private actions$: Actions,
+    private store: Store<AppState>
   ) {}
 }

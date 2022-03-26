@@ -3,6 +3,8 @@ import { PublicCourse } from '../shared/models/course.model';
 import { Sphere } from './models/sphere.model';
 
 export namespace PublicCoursesActions {
+  export const removeError = createAction('Remove Error');
+
   export const loadAllTypeCourses = createAction(
     'Load Courses',
     props<{
@@ -42,6 +44,12 @@ export namespace PublicCoursesActions {
       sphereName: string;
     }>()
   );
+  export const loadCoursesBySphereError = createAction(
+    'Load Courses By Sphere Error',
+    props<{
+      message: string;
+    }>()
+  );
 
   export const filterCoursesBySpheres = createAction(
     'Filter Courses By Spheres',
@@ -49,5 +57,6 @@ export namespace PublicCoursesActions {
       spheres: string[];
     }>()
   );
+  export const removeSpheresFilter = createAction('Remove Spheres Filter');
 }
 export namespace PrivatePublicCoursesActions {}

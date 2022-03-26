@@ -1,0 +1,28 @@
+.cover {
+  height: calc(100vw / 3);
+  width: 100vw;
+
+  box-shadow: inset 0px -20px 35px 10px rgb(0, 0, 0, 0.78);
+
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.course-sphere {
+  position: absolute;
+  margin: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .cover {
+    background-attachment: initial;
+    width: 208px;
+    height: 208px;
+    border-radius: 50%;
+    box-shadow: none;
+
+    margin: 0 auto;
+  }
+}

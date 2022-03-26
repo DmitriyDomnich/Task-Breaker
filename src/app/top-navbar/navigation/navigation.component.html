@@ -1,9 +1,9 @@
 <ng-container *ngIf="windowWidth >= 768; else small">
-  <button [routerLink]="['/']" mat-button tabindex="-1">
+  <button [routerLink]="['']" mat-button tabindex="-1">
     <span class="material-icons">bookmarks</span>
     Tasker
   </button>
-  <button mat-button tabindex="-1">
+  <button [routerLink]="['user-courses']" mat-button tabindex="-1">
     <span class="material-icons">folder</span>
     My Courses
   </button>
@@ -36,10 +36,10 @@
 </ng-template>
 <ng-template #smallNav>
   <ul>
-    <li (click)="showNavDirective.closeTab()" [routerLink]="['/']">
+    <li (click)="showNavDirective.closeTab()" [routerLink]="['']">
       <a class="material-icons">bookmarks</a>Tasker
     </li>
-    <li (click)="showNavDirective.closeTab()">
+    <li (click)="showNavDirective.closeTab()" [routerLink]="['user-courses']">
       <a class="material-icons">folder</a>My Courses
     </li>
     <li (click)="showNavDirective.closeTab()">

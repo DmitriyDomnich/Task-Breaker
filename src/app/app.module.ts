@@ -9,7 +9,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopNavbarModule } from './top-navbar/top-navbar.module';
-import { HomeModule } from './home/home.module';
+import { HomeModule } from './home-page/home.module';
 import { StoreModule } from '@ngrx/store';
 import { publicCoursesReducer } from './store/public-courses.reducer';
 import { EffectsModule } from '@ngrx/effects';

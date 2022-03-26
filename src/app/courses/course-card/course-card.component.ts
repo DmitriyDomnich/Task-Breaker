@@ -1,5 +1,12 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { Course, PublicCourse } from 'src/app/shared/models/course.model';
+import {
+  Component,
+  HostBinding,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { PublicCourse } from 'src/app/shared/models/course.model';
 
 @Component({
   selector: 'course-card',
@@ -9,6 +16,10 @@ import { Course, PublicCourse } from 'src/app/shared/models/course.model';
 export class CourseCardComponent implements OnInit {
   @Input() course: PublicCourse;
 
+  @HostListener('click') onClick() {
+    this.router.navigate(['c', this.course.id]);
+  }
+
   @HostBinding('style.backgroundImage') get backgroundImage() {
     return `linear-gradient(
       rgba(0, 0, 0, 0.25),
@@ -16,7 +27,7 @@ export class CourseCardComponent implements OnInit {
     ), url(${this.course.coverURL || ''})`;
   }
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 }
