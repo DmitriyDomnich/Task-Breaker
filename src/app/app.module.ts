@@ -14,6 +14,7 @@ import { StoreModule } from '@ngrx/store';
 import { publicCoursesReducer } from './store/public-courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PublicCoursesEffects } from './store/public-courses.effects';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { PublicCoursesEffects } from './store/public-courses.effects';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFirestoreModule.enablePersistence(),
+    AngularFireStorageModule,
     EffectsModule.forRoot([PublicCoursesEffects]),
     StoreModule.forRoot({
       publicCourses: publicCoursesReducer,

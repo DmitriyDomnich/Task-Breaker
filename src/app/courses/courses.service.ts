@@ -1,15 +1,82 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { QuerySnapshot } from 'firebase/firestore';
-import { filter, map, mergeAll, mergeMap, tap, toArray } from 'rxjs';
-import { Course, PublicCourse } from '../shared/models/course.model';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import {
+  catchError,
+  filter,
+  map,
+  mergeAll,
+  mergeMap,
+  mergeWith,
+  switchMap,
+  tap,
+  throwError,
+  toArray,
+} from 'rxjs';
+import {
+  Course,
+  CourseCreate,
+  PublicCourse,
+} from '../shared/models/course.model';
 import { Sphere } from '../store/models/sphere.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesService {
-  constructor(private db: AngularFirestore) {}
+  constructor(
+    private db: AngularFirestore,
+    private storage: AngularFireStorage
+  ) {}
+
+  createCourse(courseData: CourseCreate) {
+    const id = this.db.createId();
+    const roundRef = this.storage.ref(`courses/${id}/roundImage`);
+    const landscapeRef = this.storage.ref(`courses/${id}/landscape`);
+
+    const downloadUrls: any = {};
+
+    return roundRef
+      .put(courseData.roundImage)
+      .snapshotChanges()
+      .pipe(
+        tap((val) => console.log(`round uploading`)),
+        filter((snapshot) => snapshot?.state === 'success'),
+        switchMap((_) => roundRef.getDownloadURL()),
+        tap((downloadUrl) => (downloadUrls.roundImage = downloadUrl))
+      )
+      .pipe(
+        mergeWith(
+          landscapeRef
+            .put(courseData.landscapeImage)
+            .snapshotChanges()
+            .pipe(
+              tap((val) => console.log(`landscape uploading`)),
+              filter((snapshot) => snapshot?.state === 'success'),
+              switchMap((_) => landscapeRef.getDownloadURL()),
+              tap((downloadUrl) => (downloadUrls.landscapeImage = downloadUrl))
+            )
+        ),
+        mergeMap((_) => {
+          return this.db
+            .collection('courses')
+            .doc(id)
+            .set({
+              name: courseData.name,
+              public: courseData.isPublic,
+              description: courseData.description,
+              sphere: courseData.sphere,
+              imageUrls: {
+                round: `${downloadUrls.roundImage}`,
+                landscape: `${downloadUrls.landscapeImage}`,
+              },
+            });
+        })
+      )
+      .pipe(
+        catchError((err) => throwError(() => new Error("Can't create course.")))
+      );
+  }
 
   getCoursesByFilteredSphere(sphere: string, lastStarsValue: number) {
     console.log(sphere, lastStarsValue); // todo: remove this

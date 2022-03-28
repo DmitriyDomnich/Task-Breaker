@@ -1,0 +1,33 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  image-cropper {
+    width: 90%;
+  }
+}
+#scale {
+  display: inline-block;
+  width: auto;
+}
+.scale-div {
+  flex-grow: 1;
+  margin-top: 1rem;
+}
+#position-x {
+  width: 50%;
+}
+#position-y {
+  right: 0;
+}
+#position-x,
+#position-y {
+  position: absolute;
+}
+img {
+  margin-top: 0.5rem;
+  border-radius: 50%;
+  width: 218px;
+  height: 218px;
+}

@@ -1,0 +1,27 @@
+#error {
+  color: var(--warn-color);
+  text-align: center;
+  font-size: 24px;
+}
+mat-progress-spinner {
+  align-self: center;
+}
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+  .course-cover {
+    margin-bottom: 0.75rem;
+    input[type="file"] {
+      width: 0;
+      height: 0;
+      & + label {
+        cursor: pointer;
+      }
+    }
+  }
+  mat-slide-toggle {
+    align-self: flex-start;
+    margin-bottom: 0.75rem;
+  }
+}

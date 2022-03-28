@@ -14,14 +14,15 @@
   <button
     id="add-course"
     mat-button
+    #menuOpen="matMenuTrigger"
     [matMenuTriggerFor]="courseActions"
     tabindex="-1"
   >
     <span class="material-icons-outlined"> add_circle_outline </span>
   </button>
   <mat-menu #courseActions="matMenu">
-    <button mat-menu-item>Join a course</button>
-    <button mat-menu-item>Create a course</button>
+    <button (click)="joinCourse()" mat-menu-item>Join a course</button>
+    <button (click)="createCourse()" mat-menu-item>Create a course</button>
   </mat-menu>
 </ng-container>
 <ng-template #small>

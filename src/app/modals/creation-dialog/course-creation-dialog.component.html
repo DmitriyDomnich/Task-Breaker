@@ -1,0 +1,76 @@
+<h1 [align]="'center'" matDialogTitle>Create a course</h1>
+<form
+  (submit)="formGroup.valid && onSubmit($event)"
+  [formGroup]="formGroup"
+  *ngIf="!courseCreating; else loading"
+>
+  <mat-dialog-content>
+    <h1 id="error" *ngIf="creationError$ | async as error">
+      {{ error.message }}
+    </h1>
+    <mat-form-field appearance="outline">
+      <mat-label> Name </mat-label>
+      <input type="text" formControlName="name" matInput maxlength="24" />
+      <mat-hint align="end">6+ letters</mat-hint>
+      <mat-error *ngIf="name.invalid && name.dirty">
+        <span *ngIf="name.value.length; else nameRequired">
+          6+ symbols required
+        </span>
+        <ng-template #nameRequired>
+          <span> Input something </span>
+        </ng-template>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Category </mat-label>
+      <ng-container
+        *ngTemplateOutlet="categories; context: { $implicit: spheres$ | async }"
+      >
+      </ng-container>
+      <ng-template #categories let-spheres>
+        <mat-select formControlName="sphere">
+          <mat-option *ngFor="let sphere of spheres" [value]="sphere">
+            {{ sphere }}
+          </mat-option>
+        </mat-select>
+      </ng-template>
+      <mat-error *ngIf="sphere.invalid && sphere.dirty">
+        Choose a category
+      </mat-error>
+    </mat-form-field>
+
+    <div class="course-cover">
+      <input
+        (input)="onImageInput($event)"
+        accept=".png, .jpg, .jpeg"
+        type="file"
+        id="cover"
+      />
+      <label for="cover">Course cover</label>
+    </div>
+    <mat-slide-toggle formControlName="isPublic">Public</mat-slide-toggle>
+    <mat-form-field appearance="outline">
+      <mat-label> Short description </mat-label>
+      <textarea
+        formControlName="description"
+        maxlength="100"
+        #description
+        rows="5"
+        [style.resize]="'none'"
+        matInput
+      ></textarea>
+      <mat-hint [align]="'end'"> {{ description.value.length }}/100 </mat-hint>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button type="button" tabindex="-1" mat-raised-button matDialogClose>
+      Cancel
+    </button>
+    <button type="submit" mat-raised-button>Create</button>
+  </mat-dialog-actions>
+</form>
+<ng-template #loading>
+  <mat-dialog-content>
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </mat-dialog-content>
+</ng-template>

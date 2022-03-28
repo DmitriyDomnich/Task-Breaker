@@ -1,0 +1,49 @@
+<h1 matDialogTitle [align]="'center'">Choose an image</h1>
+<mat-dialog-content>
+  <image-cropper
+    #cropper
+    (cropperReady)="onCropperReady($event)"
+    [imageChangedEvent]="inputEvent"
+    [maintainAspectRatio]="true"
+    (imageCropped)="onImageCropped($event)"
+    [roundCropper]="true"
+    [imageQuality]="100"
+    [cropperMinHeight]="218"
+    [cropperMinWidth]="218"
+    [transform]="transform"
+  ></image-cropper>
+  <mat-slider
+    #x
+    min="-50"
+    (change)="onXPositionSlideChange($event)"
+    max="50"
+    value="0"
+    step="1"
+    id="position-x"
+  ></mat-slider>
+  <mat-slider
+    [vertical]="true"
+    min="-50"
+    value="0"
+    max="50"
+    step="1"
+    (change)="onYPositionSlideChange($event)"
+    #y
+    id="position-y"
+  ></mat-slider>
+  <div class="scale-div">
+    <span> Scale </span>
+    <mat-slider
+      id="scale"
+      max="5"
+      min="1"
+      [step]="0.01"
+      (change)="onScaleSlideChange($event)"
+    ></mat-slider>
+  </div>
+  <img [src]="croppedImage" />
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button matDialogClose>Cancel</button>
+  <button mat-button [mat-dialog-close]="croppedImage">Save</button>
+</mat-dialog-actions>
