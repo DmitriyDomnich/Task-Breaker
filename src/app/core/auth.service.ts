@@ -26,7 +26,7 @@ export class AuthService {
     );
 
     await user!.updateProfile({
-      photoURL: '../../assets/images/new_user.png',
+      photoURL: 'assets/images/new_user.png',
     });
 
     this.createUser(<User>user);
