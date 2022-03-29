@@ -4,10 +4,13 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
   catchError,
   filter,
+  from,
   map,
+  merge,
   mergeAll,
   mergeMap,
   mergeWith,
+  of,
   switchMap,
   tap,
   throwError,
@@ -29,7 +32,7 @@ export class CoursesService {
     private storage: AngularFireStorage
   ) {}
 
-  createCourse(courseData: CourseCreate) {
+  createCourse(courseData: CourseCreate, userId: string) {
     const id = this.db.createId();
     const roundRef = this.storage.ref(`courses/${id}/roundImage`);
     const landscapeRef = this.storage.ref(`courses/${id}/landscape`);
@@ -58,10 +61,9 @@ export class CoursesService {
             )
         ),
         mergeMap((_) => {
-          return this.db
-            .collection('courses')
-            .doc(id)
-            .set({
+          const newCourse = this.db.collection('courses').doc(id);
+          return from(
+            newCourse.set({
               name: courseData.name,
               public: courseData.isPublic,
               description: courseData.description,
@@ -70,12 +72,64 @@ export class CoursesService {
                 round: `${downloadUrls.roundImage}`,
                 landscape: `${downloadUrls.landscapeImage}`,
               },
-            });
+            })
+          ).pipe(
+            mergeWith(
+              from(
+                newCourse.collection('users').doc(userId).set({
+                  role: 'admin',
+                })
+              )
+            )
+          );
         })
       )
       .pipe(
         catchError((err) => throwError(() => new Error("Can't create course.")))
       );
+  }
+  joinCourse(courseId: string, userId: string) {
+    const courseRef = this.db.collection('courses').doc(courseId);
+    // userId = 'gnw78Cyz6je88l47m0myTA9i6dC3';
+    return courseRef.get().pipe(
+      filter((snapshot) => {
+        if (snapshot.exists) {
+          return true;
+        }
+        throw new Error("Course doesn't exist.");
+      }),
+      switchMap((snapshot) =>
+        this.db
+          .collection('users')
+          .doc(userId)
+          .collection('courses')
+          .doc(courseId)
+          .get()
+      ),
+      switchMap((userCourseSnapshot) => {
+        if (userCourseSnapshot.exists) {
+          return of('User already attends the course.');
+        }
+        return merge(
+          from(
+            this.db
+              .collection('users')
+              .doc(userId)
+              .collection('courses')
+              .doc(courseId)
+              .set({})
+          ),
+          from(
+            this.db
+              .collection('courses')
+              .doc(courseId)
+              .collection('users')
+              .doc(userId)
+              .set({})
+          )
+        );
+      })
+    );
   }
 
   getCoursesByFilteredSphere(sphere: string, lastStarsValue: number) {

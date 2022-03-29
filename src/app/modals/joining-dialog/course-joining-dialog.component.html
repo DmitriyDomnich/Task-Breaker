@@ -1,1 +1,25 @@
-<p>course-joining-dialog works!</p>
+<ng-template #noErr>
+  <h1 [align]="'center'" matDialogTitle>Join a course</h1>
+</ng-template>
+<h1 mat-dialog-title id="error" *ngIf="err$ | async as err; else noErr">
+  {{ err.message }}
+</h1>
+<ng-container *ngIf="!joining; else joiningRef">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline">
+      <mat-label> Course id </mat-label>
+      <input type="text" matInput [formControl]="course" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="center">
+    <button (click)="onClick()" mat-raised-button>Join</button>
+  </mat-dialog-actions>
+</ng-container>
+<ng-template #joiningRef>
+  <mat-dialog-content>
+    <mat-progress-spinner
+      [diameter]="36"
+      mode="indeterminate"
+    ></mat-progress-spinner>
+  </mat-dialog-content>
+</ng-template>

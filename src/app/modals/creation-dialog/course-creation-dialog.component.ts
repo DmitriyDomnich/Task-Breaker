@@ -78,7 +78,7 @@ export class CourseCreationDialogComponent {
       landscapeImage: this.courseCover.landscapeImage,
     };
     console.log(courseData);
-    this.coursesService.createCourse(courseData).subscribe({
+    this.coursesService.createCourse(courseData, this.user.uid).subscribe({
       error: (err) => {
         console.error(err);
         this.courseCreating = false;

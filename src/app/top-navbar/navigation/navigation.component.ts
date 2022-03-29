@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { first, tap } from 'rxjs';
 import { CourseCreationDialogComponent } from 'src/app/modals/creation-dialog/course-creation-dialog.component';
+import { CourseJoiningDialogComponent } from 'src/app/modals/joining-dialog/course-joining-dialog.component';
 import { ShowSmallNavDirective } from './show-small-nav.directive';
 
 @Component({
@@ -34,7 +35,9 @@ export class NavigationComponent implements OnInit {
           if (!user) {
             this.showSnackBar();
           } else {
-            console.log('joinining course');
+            this.dialog.open(CourseJoiningDialogComponent, {
+              data: user,
+            });
           }
         })
       )

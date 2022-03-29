@@ -7,6 +7,8 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'firebase/auth';
+import { distinct, from, tap } from 'rxjs';
 import { AuthService } from '../core/auth.service';
 import { FormErrors } from '../shared/form-errors';
 
@@ -18,6 +20,7 @@ import { FormErrors } from '../shared/form-errors';
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   showPassword = false;
+  isLoggedIn = false;
 
   constructor(
     private fb: FormBuilder,
@@ -27,8 +30,25 @@ export class SignInComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.onAuthStateChanged(async (user) => {
-      if (user) this.router.navigateByUrl('');
+    this.auth.onAuthStateChanged((user) => {
+      if (user && !this.isLoggedIn) {
+        console.log(user, this.isLoggedIn);
+        this.isLoggedIn = true;
+        this.authService
+          .checkIfNewUser(user.uid)
+          .pipe(
+            tap((isNewUser) => {
+              console.log(isNewUser, 'is new user');
+              if (isNewUser) {
+                this.authService.createUser(<User>user);
+              }
+            })
+          )
+          .subscribe();
+        this.router.navigateByUrl('');
+      } else {
+        this.isLoggedIn = false;
+      }
     });
 
     this.signInForm = this.fb.group({
