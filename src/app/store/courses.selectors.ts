@@ -33,14 +33,17 @@ export const selectPublicFilteredCourses = createSelector(
   selectPublicCourses,
   ({ courses, chosenSpheres }) => {
     if (!chosenSpheres.length) {
-      return courses;
+      return courses.map((val) => val.courses).flat();
     }
     return chosenSpheres.reduce((acc, curr) => {
       return acc.concat(
-        courses.filter(
-          (courseCollection) => courseCollection.sphereName === curr.trim()
-        )
+        courses
+          .filter(
+            (courseCollection) => courseCollection.sphereName === curr.trim()
+          )
+          .map((val) => val.courses)
+          .flat()
       );
-    }, Array<CoursesCollection<PublicCourse>>());
+    }, Array<PublicCourse>());
   }
 );

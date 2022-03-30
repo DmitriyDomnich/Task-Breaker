@@ -18,6 +18,3 @@ export interface PublicCourse extends Course {
   stars: number;
   isPublic: true;
 }
-export interface PrivateCourse extends Course {
-  isPublic: false;
-}

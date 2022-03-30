@@ -23,7 +23,10 @@ export class UserCoursesService {
         )
       ),
       mergeMap((val) => val.get()),
-      map((val) => val.data()),
+      map((val) => ({
+        id: val.id,
+        ...val.data(),
+      })),
       toArray(),
       tap(console.log)
     );

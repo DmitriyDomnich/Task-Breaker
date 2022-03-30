@@ -6,7 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { PublicCourse } from 'src/app/shared/models/course.model';
+import { Course, PublicCourse } from 'src/app/shared/models/course.model';
 
 @Component({
   selector: 'course-card',
@@ -14,7 +14,7 @@ import { PublicCourse } from 'src/app/shared/models/course.model';
   styleUrls: ['./course-card.component.scss'],
 })
 export class CourseCardComponent implements OnInit {
-  @Input() course: PublicCourse;
+  @Input() course: PublicCourse | Course;
 
   @HostListener('click') onClick() {
     this.router.navigate(['c', this.course.id]);

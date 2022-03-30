@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatChip, MatChipListChange } from '@angular/material/chips';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, first, Observable, take, tap, timer } from 'rxjs';
+import { filter, first, Observable, tap, timer } from 'rxjs';
 import { PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from '../store/courses.actions';
 import {
@@ -29,9 +29,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('scrollPoint')
   scrollPoint: ElementRef<HTMLDivElement>;
 
-  spheres$: Observable<Sphere[]> = this.store
-    .select(selectAllSpheres)
-    .pipe(tap((val) => (this.spheresNumber = val.length)));
+  spheres$: Observable<Sphere[]> = this.store.select(selectAllSpheres);
   chosenSpheres$: Observable<ChosenSpheresWithCourses> = this.store
     .select(selectChosenSpheresWithCourses)
     .pipe(
@@ -69,24 +67,11 @@ export class HomeComponent implements OnInit {
     })
   );
   private coursesLength = 0;
-  private spheresNumber = 0;
 
   publicCoursesSelector = selectPublicFilteredCourses;
   loadTimer = false;
 
-  constructor(private store: Store<AppState>, private router: Router) {
-    router.events
-      .pipe(
-        filter((navEvent) => navEvent instanceof NavigationEnd),
-        first(),
-        tap((_) =>
-          store.dispatch({
-            type: PublicCoursesActions.removeSpheresFilter.type,
-          })
-        )
-      )
-      .subscribe();
-  }
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   onChipListChanged({ value: spheresOn }: MatChipListChange) {
     this.store.dispatch(
@@ -102,7 +87,7 @@ export class HomeComponent implements OnInit {
     this.loadTimer = true;
     this.chosenSpheres$
       .pipe(
-        take(1),
+        first(),
         tap(({ chosenSpheres, courses }) =>
           chosenSpheres.forEach((sphereName) => {
             this.store.dispatch({
@@ -118,5 +103,15 @@ export class HomeComponent implements OnInit {
       .subscribe();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events
+      .pipe(
+        filter((navEvent) => navEvent instanceof NavigationEnd),
+        first(),
+        tap((_) =>
+          this.store.dispatch(PublicCoursesActions.removeSpheresFilter())
+        )
+      )
+      .subscribe();
+  }
 }

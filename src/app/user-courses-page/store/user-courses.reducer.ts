@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { PrivateCourse } from 'src/app/shared/models/course.model';
+import { Course } from 'src/app/shared/models/course.model';
 import { UserCoursesActions } from './user-courses.actions';
 
 export interface UserCoursesState {
-  courses: ReadonlyArray<PrivateCourse>;
+  courses: ReadonlyArray<Course>;
 }
 
 export const userCoursesFeatureKey = 'user-courses';

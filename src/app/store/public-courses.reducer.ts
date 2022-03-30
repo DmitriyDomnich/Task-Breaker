@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { PrivateCourse, PublicCourse } from '../shared/models/course.model';
+import { Course, PublicCourse } from '../shared/models/course.model';
 import { PublicCoursesActions } from './courses.actions';
 import { CoursesCollection } from './models/courses-collection.model';
 import { Sphere } from './models/sphere.model';
@@ -43,9 +43,7 @@ export const publicCoursesReducer = createReducer<PublicCoursesState>(
         ...state,
         courses: state.courses.reduce((acc, curr) => {
           if (curr.sphereName === sphereName) {
-            const courseCollection: CoursesCollection<
-              PublicCourse | PrivateCourse
-            > = {
+            const courseCollection: CoursesCollection<PublicCourse | Course> = {
               ...curr,
               courses: curr.courses.concat(courses),
               lastStarsValue: courses[courses.length - 1].stars,

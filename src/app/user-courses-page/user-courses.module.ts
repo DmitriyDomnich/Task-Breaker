@@ -9,7 +9,7 @@ import {
 } from './store/user-courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserCoursesEffects } from './store/user-courses.effects';
-import { CourseCardModule } from '../widgets/course-card/course-card.module';
+import { CoursesModule } from '../home-page/courses/courses.module';
 
 @NgModule({
   declarations: [UserCoursesComponent],
@@ -18,7 +18,7 @@ import { CourseCardModule } from '../widgets/course-card/course-card.module';
     UserCoursesRoutingModule,
     EffectsModule.forFeature([UserCoursesEffects]),
     StoreModule.forFeature(userCoursesFeatureKey, userCoursesReducer),
-    CourseCardModule,
+    CoursesModule,
   ],
 })
 export class UserCoursesModule {}

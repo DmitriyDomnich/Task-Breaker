@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { PrivateCourse } from 'src/app/shared/models/course.model';
+import { Course } from 'src/app/shared/models/course.model';
 
 export namespace UserCoursesActions {
   export const loadCurrentUserCourses = createAction(
@@ -8,7 +8,7 @@ export namespace UserCoursesActions {
   export const loadCurrentUserCoursesSuccess = createAction(
     'Load Current User Courses Success',
     props<{
-      courses: PrivateCourse[];
+      courses: Course[];
     }>()
   );
   export const loadCurrentUserCoursesError = createAction(
