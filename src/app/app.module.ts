@@ -30,7 +30,6 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     EffectsModule.forRoot([PublicCoursesEffects]),
     StoreModule.forRoot({
       publicCourses: publicCoursesReducer,
-      // privateCourses:
     }),
     TopNavbarModule,
     HomeModule,

@@ -16,12 +16,8 @@ import {
   throwError,
   toArray,
 } from 'rxjs';
-import {
-  Course,
-  CourseCreate,
-  PublicCourse,
-} from '../shared/models/course.model';
-import { Sphere } from '../store/models/sphere.model';
+import { Course, CourseCreate, PublicCourse } from '../models/course.model';
+import { Sphere } from '../../store/models/sphere.model';
 
 @Injectable({
   providedIn: 'root',
@@ -90,7 +86,7 @@ export class CoursesService {
   }
   joinCourse(courseId: string, userId: string) {
     const courseRef = this.db.collection('courses').doc(courseId);
-    // userId = 'gnw78Cyz6je88l47m0myTA9i6dC3';
+
     return courseRef.get().pipe(
       filter((snapshot) => {
         if (snapshot.exists) {
@@ -180,6 +176,7 @@ export class CoursesService {
       );
   }
   getAllSpheres() {
+    // todo: extract to different service
     return this.db
       .collection<Sphere>('spheres')
       .get()

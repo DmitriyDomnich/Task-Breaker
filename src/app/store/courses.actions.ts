@@ -59,4 +59,3 @@ export namespace PublicCoursesActions {
   );
   export const removeSpheresFilter = createAction('Remove Spheres Filter');
 }
-export namespace PrivatePublicCoursesActions {}

@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { CoursesService } from '../courses/courses.service';
+import { PublicCourse } from '../shared/models/course.model';
+import { CoursesService } from '../shared/services/courses.service';
 import { PublicCoursesActions } from './courses.actions';
 import { AppState } from './models/app.state';
 

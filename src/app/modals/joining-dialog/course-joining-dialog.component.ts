@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User } from 'firebase/auth';
 import { Observable, of, timer } from 'rxjs';
-import { CoursesService } from 'src/app/courses/courses.service';
+import { CoursesService } from 'src/app/shared/services/courses.service';
 
 @Component({
   selector: 'course-joining-dialog',
@@ -27,8 +27,8 @@ export class CourseJoiningDialogComponent implements OnInit {
     this.joining = true;
     this.coursesService.joinCourse(this.course.value, this.user.uid).subscribe({
       next: (response) => {
-        this.joining = false;
         if (response) {
+          this.joining = false;
           this.err$ = of(new Error(response));
           this.removeError();
         }

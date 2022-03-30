@@ -8,7 +8,7 @@ import {
 import { Store } from '@ngrx/store';
 import { User } from 'firebase/auth';
 import { first, map, Observable, of, switchMap, tap, timer } from 'rxjs';
-import { CoursesService } from 'src/app/courses/courses.service';
+import { CoursesService } from 'src/app/shared/services/courses.service';
 import { CourseCreate } from 'src/app/shared/models/course.model';
 import { CourseCover } from 'src/app/shared/models/cover.model';
 import { selectAllSpheres } from 'src/app/store/courses.selectors';
