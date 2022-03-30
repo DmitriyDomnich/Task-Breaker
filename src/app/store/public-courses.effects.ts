@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { catchError, map, mergeMap, of } from 'rxjs';
-import { PublicCourse } from '../shared/models/course.model';
 import { CoursesService } from '../shared/services/courses.service';
 import { PublicCoursesActions } from './courses.actions';
-import { AppState } from './models/app.state';
 
 @Injectable()
 export class PublicCoursesEffects {
@@ -72,7 +69,6 @@ export class PublicCoursesEffects {
 
   constructor(
     private coursesService: CoursesService,
-    private actions$: Actions,
-    private store: Store<AppState>
+    private actions$: Actions
   ) {}
 }

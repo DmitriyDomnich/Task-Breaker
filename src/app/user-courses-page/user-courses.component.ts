@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { switchMap } from 'rxjs';
-import { PrivateCoursesService } from '../shared/services/private-courses.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { PrivateCourse } from '../shared/models/course.model';
+import { UserCoursesActions } from './store/user-courses.actions';
+import { UserCoursesState } from './store/user-courses.reducer';
+import { selectUserCourses } from './store/user-courses.selectors';
 
 @Component({
   selector: 'user-courses',
@@ -9,14 +12,14 @@ import { PrivateCoursesService } from '../shared/services/private-courses.servic
   styleUrls: ['./user-courses.component.scss'],
 })
 export class UserCoursesComponent implements OnInit {
-  constructor(
-    private userCoursesService: PrivateCoursesService,
-    private auth: AngularFireAuth
-  ) {}
+  courses$: Observable<ReadonlyArray<PrivateCourse>> =
+    this.store.select(selectUserCourses);
+
+  constructor(private store: Store<UserCoursesState>) {}
 
   ngOnInit(): void {
-    this.auth.user
-      .pipe(switchMap((user) => this.userCoursesService.getCourses(user!.uid)))
-      .subscribe();
+    this.store.dispatch({
+      type: UserCoursesActions.loadCurrentUserCourses.type,
+    });
   }
 }

@@ -15,6 +15,8 @@ import { publicCoursesReducer } from './store/public-courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { PublicCoursesEffects } from './store/public-courses.effects';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +24,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
@@ -33,6 +36,11 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     }),
     TopNavbarModule,
     HomeModule,
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+      autoPause: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

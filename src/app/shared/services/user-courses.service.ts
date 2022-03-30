@@ -6,7 +6,7 @@ import { Course } from '../models/course.model';
 @Injectable({
   providedIn: 'root',
 })
-export class PrivateCoursesService {
+export class UserCoursesService {
   constructor(private db: AngularFirestore) {}
 
   getCourses(userId: string) {
@@ -24,7 +24,8 @@ export class PrivateCoursesService {
       ),
       mergeMap((val) => val.get()),
       map((val) => val.data()),
-      toArray()
+      toArray(),
+      tap(console.log)
     );
   }
 }

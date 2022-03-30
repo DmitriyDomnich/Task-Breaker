@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MemoizedSelector, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Course } from '../shared/models/course.model';
-import { AppState } from '../store/models/app.state';
-import { CoursesCollection } from '../store/models/courses-collection.model';
+import { Course } from '../../shared/models/course.model';
+import { AppState } from '../../store/models/app.state';
+import { CoursesCollection } from '../../store/models/courses-collection.model';
 
 @Component({
   selector: 'courses',
