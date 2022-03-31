@@ -7,9 +7,11 @@ import {
 export const selectUserCoursesFeatureKey =
   createFeatureSelector<UserCoursesState>(userCoursesFeatureKey);
 
-export const selectUserCourses = createSelector(
-  selectUserCoursesFeatureKey,
-  ({ courses }) => {
+// true - public, false - private
+export const selectUserCourses = (filter: boolean | null) =>
+  createSelector(selectUserCoursesFeatureKey, ({ courses }) => {
+    if (filter !== null) {
+      return courses.filter((course) => course.isPublic === filter);
+    }
     return courses;
-  }
-);
+  });

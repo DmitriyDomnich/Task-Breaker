@@ -9,7 +9,12 @@ import {
 } from './store/user-courses.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { UserCoursesEffects } from './store/user-courses.effects';
-import { CoursesModule } from '../home-page/courses/courses.module';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { SharedModule } from '../shared/shared.module';
+import { CourseCardModule } from '../widgets/course-card/course-card.module';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 @NgModule({
   declarations: [UserCoursesComponent],
@@ -18,7 +23,12 @@ import { CoursesModule } from '../home-page/courses/courses.module';
     UserCoursesRoutingModule,
     EffectsModule.forFeature([UserCoursesEffects]),
     StoreModule.forFeature(userCoursesFeatureKey, userCoursesReducer),
-    CoursesModule,
+    CourseCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    SharedModule,
+    MatButtonModule,
+    CdkAccordionModule,
   ],
 })
 export class UserCoursesModule {}

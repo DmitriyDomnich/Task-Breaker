@@ -61,7 +61,7 @@ export class CoursesService {
           return from(
             newCourse.set({
               name: courseData.name,
-              public: courseData.isPublic,
+              isPublic: courseData.isPublic,
               description: courseData.description,
               sphere: courseData.sphere,
               imageUrls: {
@@ -134,7 +134,7 @@ export class CoursesService {
       .collection<Course>('courses', (ref) =>
         ref
           .where('sphere', '==', sphere)
-          .where('public', '==', true)
+          .where('isPublic', '==', true)
           .orderBy('stars', 'desc')
           .startAfter(lastStarsValue)
           .limit(1)
@@ -159,7 +159,7 @@ export class CoursesService {
             .collection<PublicCourse>('courses', (ref) =>
               ref
                 .where('sphere', '==', sphere)
-                .where('public', '==', type)
+                .where('isPublic', '==', type)
                 .orderBy('stars', 'desc')
                 .limit(amount)
             )

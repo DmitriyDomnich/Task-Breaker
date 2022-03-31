@@ -1,1 +1,54 @@
-<courses [selector]="selector"> </courses>
+<div class="top">
+  <div class="actions">
+    <button [style.fontSize]="'inherit'" color="accent" mat-button>
+      Task List <span class="material-icons-outlined"> receipt_long </span>
+    </button>
+    <button [style.fontSize]="'inherit'" color="accent" mat-button>
+      Calendar <span class="material-icons-outlined"> calendar_month </span>
+    </button>
+  </div>
+  <mat-form-field
+    color="accent"
+    appearance="fill"
+    [style.alignSelf]="'flex-end'"
+  >
+    <mat-label>Filter</mat-label>
+    <mat-select (selectionChange)="onChange($event)">
+      <mat-option [value]="null">All</mat-option>
+      <mat-option [value]="true">Public</mat-option>
+      <mat-option [value]="false">Private</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="grid" *ngIf="courses$ | async as courses">
+  <cdk-accordion *ngFor="let course of courses">
+    <cdk-accordion-item #accordionItem="cdkAccordionItem">
+      <course-card [style.height]="'100%'" [course]="course">
+        <span
+          [style.fontSize]="'24px'"
+          *ngIf="!accordionItem.expanded; else hide"
+          (click)="toggleInfo($event, accordionItem, info)"
+          [style.color]="'white'"
+          class="material-icons-outlined"
+          [class.toggle]="true"
+        >
+          expand_more
+        </span>
+        <ng-template #hide>
+          <span
+            [style.fontSize]="'24px'"
+            class="material-icons-outlined"
+            [style.color]="'white'"
+            (click)="toggleInfo($event, accordionItem, info)"
+            [class.toggle]="true"
+          >
+            expand_less
+          </span>
+        </ng-template>
+      </course-card>
+      <div #info [style.display]="accordionItem.expanded ? 'block' : 'none'">
+        text
+      </div>
+    </cdk-accordion-item>
+  </cdk-accordion>
+</div>
