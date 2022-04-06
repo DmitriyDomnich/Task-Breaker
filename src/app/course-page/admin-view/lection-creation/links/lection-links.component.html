@@ -1,0 +1,30 @@
+<hr />
+<div
+  class="previews"
+  *ngFor="let pagePreview of pagePreviews$ | async; let i = index"
+>
+  <page-preview [pagePreview]="pagePreview"></page-preview>
+</div>
+<form (submit)="linkName.valid && onSubmit($event)">
+  <mat-form-field appearance="outline">
+    <input
+      type="text"
+      placeholder="Enter link"
+      [pattern]="linkRegex"
+      [(ngModel)]="linkInput"
+      [ngModelOptions]="{ standalone: true }"
+      #linkName="ngModel"
+      matInput
+    />
+    <mat-error *ngIf="linkName.errors?.['pattern']">Not url</mat-error>
+  </mat-form-field>
+
+  <button
+    [disabled]="!linkInput.length"
+    [style.font-size.px]="24"
+    type="submit"
+    mat-fab
+  >
+    <span class="material-icons-outlined"> add </span>
+  </button>
+</form>

@@ -1,0 +1,22 @@
+<ng-container *ngIf="!creationWay; else chosen">
+  <h1>Choose the way of creating the lection</h1>
+  <div class="container">
+    <div (click)="creationWay = 'editor'" matRipple>
+      <span class="name">Editor</span>
+      <span class="material-icons-outlined"> note_alt </span>
+    </div>
+    <div (click)="creationWay = 'links'" matRipple>
+      <span class="name">Links</span>
+      <span class="material-icons-outlined"> link </span>
+    </div>
+  </div>
+</ng-container>
+<ng-template #chosen>
+  <ng-container *ngIf="creationWay === 'editor'; else links">
+    <general-info> </general-info>
+    <editor (onEditorCancel)="creationWay = null"></editor>
+  </ng-container>
+  <ng-template #links>
+    <general-info><lection-links></lection-links> </general-info>
+  </ng-template>
+</ng-template>

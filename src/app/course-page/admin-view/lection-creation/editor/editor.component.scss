@@ -1,0 +1,56 @@
+.host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem;
+}
+.container {
+  margin-block: 2em;
+  min-width: 400px;
+  max-width: 1058px;
+  .ql-syntax {
+    font-family: monospace;
+  }
+}
+.ql-editor.ql-blank::before,
+.ql-options .ql-picker-item,
+.ql-toolbar.ql-snow .ql-picker-label {
+  color: var(--text-color);
+}
+.ql-snow {
+  .ql-fill {
+    fill: var(--text-color);
+  }
+  .ql-stroke {
+    stroke: var(--text-color);
+  }
+}
+
+.ql-formats {
+  border: 1px solid var(--text-color);
+  margin-block: 0.25rem;
+}
+.editor-styles {
+  font-size: 20px;
+  min-height: 500px;
+}
+
+.buttons {
+  display: flex;
+  margin: 1em;
+  button {
+    margin-inline: 1rem;
+  }
+}
+.ql-font-fira,
+[data-label="Fira Sans"]::before {
+  font-family: "Fira Sans";
+}
+.ql-font-sans-serif {
+  font-family: sans-serif;
+}
+.ql-font-roboto,
+[data-label="Roboto"]::before {
+  font-family: "Roboto";
+}

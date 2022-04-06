@@ -2,7 +2,8 @@
 @use "dark-color-variables" as dark;
 @use "light-color-variables" as light;
 @use "directives" as directives;
-@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap");
+@import "~quill/dist/quill.snow.css";
 
 *,
 *::after,
@@ -17,10 +18,12 @@
   --primary-color: #{light.$primary};
   --accent-color: #{light.$accent};
   --warn-color: #{light.$warn};
+  --text-color: #{light.$text};
 }
 html,
 body {
   height: 100%;
+  overflow-x: hidden;
 }
 body {
   color: #fff;
@@ -61,23 +64,11 @@ $dark-theme: mat.define-dark-theme(
   --primary-color: #{dark.$primary};
   --accent-color: #{dark.$accent};
   --warn-color: #{dark.$warn};
+  --text-color: #{dark.$text};
 }
 
 .no-account {
   color: var(--warn-color);
   font-size: 75%;
   margin-top: -0.5rem;
-}
-
-.stars {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  font-size: 22px;
-  color: #fff;
-  word-spacing: -3px;
-  & > span {
-    position: relative;
-    bottom: 3px;
-  }
 }

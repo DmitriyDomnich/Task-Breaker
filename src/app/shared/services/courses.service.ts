@@ -3,10 +3,10 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import {
   catchError,
+  combineLatest,
   filter,
   from,
   map,
-  merge,
   mergeAll,
   mergeMap,
   mergeWith,
@@ -106,7 +106,7 @@ export class CoursesService {
         if (userCourseSnapshot.exists) {
           return of('User already attends the course.');
         }
-        return merge(
+        return combineLatest([
           from(
             this.db
               .collection('users')
@@ -121,11 +121,25 @@ export class CoursesService {
               .doc(courseId)
               .collection('users')
               .doc(userId)
-              .set({})
-          )
-        );
+              .set({
+                role: 'student',
+              })
+          ),
+        ]);
       })
     );
+  }
+  leaveCourse(courseId: string, userId: string) {
+    const courseRef = this.db.collection<Course>('courses').doc(courseId);
+    return combineLatest([
+      this.db
+        .collection('users')
+        .doc(userId)
+        .collection('courses')
+        .doc(courseId)
+        .delete(),
+      courseRef.collection('users').doc(userId).delete(),
+    ]);
   }
 
   getCoursesByFilteredSphere(sphere: string, lastStarsValue: number) {

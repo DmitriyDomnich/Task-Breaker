@@ -17,6 +17,7 @@ import { PublicCoursesEffects } from './store/public-courses.effects';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,33 @@ import { HttpClientModule } from '@angular/common/http';
     provideFirestore(() => getFirestore()),
     AngularFirestoreModule.enablePersistence(),
     AngularFireStorageModule,
+    QuillModule.forRoot({
+      theme: 'snow',
+      modules: {
+        syntax: true,
+      },
+      customOptions: [
+        {
+          import: 'attributors/class/font',
+          whitelist: ['roboto', 'fira', 'serif', 'sans-serif', 'monospace'],
+        },
+        {
+          import: 'attributors/style/size',
+          whitelist: [
+            '12px',
+            '14px',
+            '16px',
+            '18px',
+            '20px',
+            '22px',
+            '24px',
+            '30px',
+            '32px',
+            '40px',
+          ],
+        },
+      ],
+    }),
     EffectsModule.forRoot([PublicCoursesEffects]),
     StoreModule.forRoot({
       publicCourses: publicCoursesReducer,

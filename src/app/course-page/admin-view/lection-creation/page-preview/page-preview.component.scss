@@ -1,0 +1,26 @@
+:host {
+  padding: 0.75rem;
+  border: 1px solid rgb(164, 164, 164);
+  border-radius: 8px;
+  display: flex;
+  margin: 0.25rem;
+  max-width: 100%;
+}
+.img {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 1 0 56px;
+  height: 56px;
+  margin-left: 0.25rem;
+}
+.info {
+  flex: 2 0 300px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .url {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}

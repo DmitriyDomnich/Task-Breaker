@@ -8,7 +8,16 @@
         [courseSphere]="course.sphere"
       ></ng-container>
       <h1>{{ course.name }}</h1>
+      <button
+        class="course-join-leave"
+        *ngIf="role !== 'admin'"
+        mat-flat-button
+        color="primary"
+        (onRoleChange)="roleChanged($event)"
+        [toggleCourse]="role"
+        [courseId]="course.id"
+      ></button>
     </div>
   </header>
-  {{ course.id }}
 </ng-container>
+<ng-template adHost> </ng-template>

@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  min-width: 350px;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 0 auto;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+}
+h2 {
+  font-size: 26px;
+}
+form {
+  font-size: 19px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 350px;
+  width: 100%;
+  hr {
+    width: 100%;
+  }
+  mat-form-field {
+    width: calc(max(350px, 75%));
+    max-width: 550px;
+    textarea {
+      resize: none;
+      min-height: 200px;
+      max-height: 500px;
+    }
+  }
+}

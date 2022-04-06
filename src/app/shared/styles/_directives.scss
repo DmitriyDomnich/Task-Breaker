@@ -10,6 +10,19 @@
   background-repeat: no-repeat;
 }
 
+.stars {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 22px;
+  color: #fff;
+  word-spacing: -3px;
+  & > span {
+    position: relative;
+    bottom: 3px;
+  }
+}
+
 .course-sphere {
   position: absolute;
   color: #fff;

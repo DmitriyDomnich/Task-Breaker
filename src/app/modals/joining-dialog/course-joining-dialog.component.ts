@@ -1,6 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
 import { Observable, of, timer } from 'rxjs';
 import { CoursesService } from 'src/app/shared/services/courses.service';
@@ -10,7 +11,7 @@ import { CoursesService } from 'src/app/shared/services/courses.service';
   templateUrl: './course-joining-dialog.component.html',
   styleUrls: ['./course-joining-dialog.component.scss'],
 })
-export class CourseJoiningDialogComponent implements OnInit {
+export class CourseJoiningDialogComponent {
   course: FormControl;
   err$: Observable<Error> | null;
 
@@ -19,7 +20,8 @@ export class CourseJoiningDialogComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<CourseJoiningDialogComponent>,
     private coursesService: CoursesService,
-    @Inject(MAT_DIALOG_DATA) private user: User
+    @Inject(MAT_DIALOG_DATA) private user: User,
+    private router: Router
   ) {
     this.course = new FormControl('');
   }
@@ -27,13 +29,13 @@ export class CourseJoiningDialogComponent implements OnInit {
     this.joining = true;
     this.coursesService.joinCourse(this.course.value, this.user.uid).subscribe({
       next: (response) => {
-        if (response) {
+        if (typeof response === 'string') {
           this.joining = false;
           this.err$ = of(new Error(response));
           this.removeError();
         }
         this.dialogRef.close();
-        // todo: navigate to the course
+        this.router.navigate(['c', this.course.value]);
       },
       error: (err) => {
         this.joining = false;
@@ -47,5 +49,4 @@ export class CourseJoiningDialogComponent implements OnInit {
       complete: () => (this.err$ = null),
     });
   }
-  ngOnInit(): void {}
 }

@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+  width: calc(max(350px, 75%));
+  margin: 0.5rem;
+}
+hr {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -0.75rem;
+}
+mat-form-field {
+  margin: 0 auto;
+  max-width: 375px;
+  display: block;
+  text-align: center;
+}
+button {
+  display: block;
+  margin: auto;
+}
+.previews {
+  display: flex;
+  flex-wrap: wrap;
+  & > * {
+    flex: 1 0 300px;
+  }
+}

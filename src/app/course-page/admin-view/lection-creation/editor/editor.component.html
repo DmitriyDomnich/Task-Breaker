@@ -1,0 +1,94 @@
+<div class="container">
+  <quill-editor
+    (onEditorCreated)="uiReady = true"
+    [classes]="'editor-styles'"
+    [(ngModel)]="html"
+    placeholder="Your lection goes here"
+  >
+    <div quill-editor-toolbar>
+      <span class="ql-formats">
+        <button class="ql-bold" [title]="'Bold'"></button>
+        <button class="ql-italic" [title]="'Italic'"></button>
+        <button class="ql-underline" [title]="'Underline'"></button>
+        <button class="ql-strike" [title]="'Strike'"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-blockquote" [title]="'Blockquote'"></button>
+        <button class="ql-code-block" [title]="'Code block'"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-script" value="sub"></button>
+        <button class="ql-script" value="super"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list" value="ordered"></button>
+        <button class="ql-list" value="bullet"></button>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-color"></select>
+        <select class="ql-background"></select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-header">
+          <option value="1">Heading 1</option>
+          <option value="2">Heading 2</option>
+          <option value="3">Heading 3</option>
+          <option value="">Normal</option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-size">
+          <option value="12px">12</option>
+          <option value="14px">14</option>
+          <option value="16px">16</option>
+          <option value="18px">18</option>
+          <option selected value="20px">20</option>
+          <option value="22px">22</option>
+          <option value="24px">24</option>
+          <option value="30px">30</option>
+          <option value="32px">32</option>
+          <option value="40px">40</option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-font">
+          <option value="roboto">Roboto</option>
+          <option selected value="fira">Fira Sans</option>
+          <option value="serif">Serif</option>
+          <option value="sans-serif">Sans Serif</option>
+          <option value="monospace">Monospace</option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-indent" value="-1"></button>
+        <button class="ql-indent" value="+1"></button>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-align" [title]="'Aligment'">
+          <option selected></option>
+          <option value="center"></option>
+          <option value="right"></option>
+          <option value="justify"></option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-clean"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-link"></button>
+        <button class="ql-image"></button>
+        <button class="ql-video"></button>
+      </span>
+    </div>
+  </quill-editor>
+</div>
+<ng-container *ngIf="uiReady">
+  <div class="buttons">
+    <button mat-raised-button color="warn" (click)="onEditorCancel.emit()">
+      Cancel
+    </button>
+    <button (click)="onApprove()" color="primary" mat-raised-button>
+      Approve
+    </button>
+  </div>
+</ng-container>

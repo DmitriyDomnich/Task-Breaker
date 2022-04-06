@@ -1,0 +1,55 @@
+@use "sass:color";
+:host {
+  display: block;
+}
+h1 {
+  font-size: 32px;
+  margin-block: 1em;
+  text-align: center;
+}
+.container {
+  display: flex;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  margin-inline: auto;
+  max-width: 1000px;
+  padding: 2rem;
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+    min-height: 300px;
+    transition: all ease-in-out 250ms;
+    border-radius: 4px;
+    padding: 0.75rem;
+    flex-grow: 1;
+    text-align: center;
+    span.name + span {
+      margin-top: 1em;
+      font-size: 52px;
+    }
+    &:first-child {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 2px solid #303030;
+      :host-context(.dark-theme) & {
+        border-right: 2px solid #fff;
+      }
+    }
+    :host-context(.dark-theme) &:hover {
+      background-color: color.scale(#303030, $lightness: 10%);
+    }
+
+    &:hover {
+      & span.name {
+        text-decoration: underline;
+      }
+      background-color: color.scale(#fff, $lightness: -10%);
+    }
+  }
+}

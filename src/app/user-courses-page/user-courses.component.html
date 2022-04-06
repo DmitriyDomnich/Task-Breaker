@@ -47,7 +47,7 @@
         </ng-template>
       </course-card>
       <div #info [style.display]="accordionItem.expanded ? 'block' : 'none'">
-        text
+        {{ course.description }}
       </div>
     </cdk-accordion-item>
   </cdk-accordion>

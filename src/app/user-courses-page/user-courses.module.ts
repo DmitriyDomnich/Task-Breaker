@@ -11,7 +11,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserCoursesEffects } from './store/user-courses.effects';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
 import { CourseCardModule } from '../widgets/course-card/course-card.module';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -27,7 +26,6 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     MatFormFieldModule,
     MatSelectModule,
     SharedModule,
-    MatButtonModule,
     CdkAccordionModule,
   ],
 })
