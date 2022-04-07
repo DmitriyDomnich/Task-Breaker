@@ -1,3 +1,4 @@
+@use "sass:color";
 :host {
   padding: 0.75rem;
   border: 1px solid rgb(164, 164, 164);
@@ -5,6 +6,18 @@
   display: flex;
   margin: 0.25rem;
   max-width: 100%;
+  cursor: pointer;
+  transition: all 250ms ease-in-out;
+  :host-context(.dark-theme) &:hover {
+    background-color: color.scale(#303030, $lightness: 10%);
+  }
+  &:hover {
+    border-color: var(--primary-color);
+    background-color: color.scale(#f0f0f0, $lightness: -5%);
+    span {
+      text-decoration: underline;
+    }
+  }
 }
 .img {
   background-size: contain;
@@ -12,15 +25,16 @@
   background-position: center;
   flex: 1 0 56px;
   height: 56px;
-  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 .info {
   flex: 2 0 300px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  .url {
+  h2.title {
     white-space: nowrap;
     text-overflow: ellipsis;
+    margin-bottom: 0.25rem;
   }
 }

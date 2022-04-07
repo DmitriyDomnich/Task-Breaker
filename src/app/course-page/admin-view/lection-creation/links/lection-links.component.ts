@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   catchError,
   combineLatestWith,
   EMPTY,
   filter,
-  isEmpty,
+  finalize,
   map,
   Observable,
   of,
@@ -20,7 +20,7 @@ import { PagePreviewService } from '../../page-preview.service';
 })
 export class LectionLinksComponent implements OnInit {
   pagePreviews$: Observable<any[]> = of([]);
-
+  @ViewChild('scroll') scrollRef: ElementRef<HTMLSpanElement>;
   linkInput: string = '';
   linkRegex =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -62,7 +62,12 @@ export class LectionLinksComponent implements OnInit {
         ),
         tap(([json, arr]) => {
           arr.push(json);
-        })
+        }),
+        finalize(() =>
+          this.scrollRef.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+          })
+        )
       )
       .subscribe({ error: (err) => console.error(err) });
   }

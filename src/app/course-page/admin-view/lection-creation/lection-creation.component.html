@@ -14,9 +14,18 @@
 <ng-template #chosen>
   <ng-container *ngIf="creationWay === 'editor'; else links">
     <general-info> </general-info>
-    <editor (onEditorCancel)="creationWay = null"></editor>
+    <editor>
+      <creation-buttons
+        (onCancel)="creationWay = null"
+        buttons
+      ></creation-buttons>
+    </editor>
   </ng-container>
   <ng-template #links>
-    <general-info><lection-links></lection-links> </general-info>
+    <general-info><lection-links links></lection-links> </general-info>
+    <creation-buttons
+      (onCancel)="creationWay = null"
+      buttons
+    ></creation-buttons>
   </ng-template>
 </ng-template>

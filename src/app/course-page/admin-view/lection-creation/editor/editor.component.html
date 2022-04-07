@@ -83,12 +83,5 @@
   </quill-editor>
 </div>
 <ng-container *ngIf="uiReady">
-  <div class="buttons">
-    <button mat-raised-button color="warn" (click)="onEditorCancel.emit()">
-      Cancel
-    </button>
-    <button (click)="onApprove()" color="primary" mat-raised-button>
-      Approve
-    </button>
-  </div>
+  <ng-content select="[buttons]"></ng-content>
 </ng-container>

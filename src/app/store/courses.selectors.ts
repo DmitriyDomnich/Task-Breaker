@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PublicCourse } from '../shared/models/course.model';
-import { CoursesCollection } from './models/courses-collection.model';
 import { PublicCoursesState } from './public-courses.reducer';
 
 export const publicCoursesKey = 'publicCourses';

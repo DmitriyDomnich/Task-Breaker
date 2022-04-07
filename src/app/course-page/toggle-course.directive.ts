@@ -5,11 +5,10 @@ import {
   HostListener,
   Input,
   OnChanges,
-  OnInit,
   Output,
 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { first, switchMap, tap } from 'rxjs';
+import { first, tap } from 'rxjs';
 import { Role } from '../shared/models/role.model';
 import { CoursesService } from '../shared/services/courses.service';
 

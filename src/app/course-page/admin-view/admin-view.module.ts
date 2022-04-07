@@ -8,7 +8,6 @@ import { QuillModule } from 'ngx-quill';
 import { EditorComponent } from './lection-creation/editor/editor.component';
 import { LectionCreationComponent } from './lection-creation/lection-creation.component';
 import { MatRippleModule } from '@angular/material/core';
-import { GeneralInfoComponent } from './lection-creation/general-info/general-info.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
@@ -16,6 +15,8 @@ import { LectionLinksComponent } from './lection-creation/links/lection-links.co
 import { PagePreviewService } from './page-preview.service';
 import { PagePreviewComponent } from './lection-creation/page-preview/page-preview.component';
 import { BackgroundImagePreviewPipe } from './lection-creation/page-preview/background-image-preview.pipe';
+import { GeneralInfoComponent } from './lection-creation/general-info/general-info.component';
+import { CreationButtonsComponent } from './lection-creation/creation-buttons/creation-buttons.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { BackgroundImagePreviewPipe } from './lection-creation/page-preview/back
     LectionLinksComponent,
     PagePreviewComponent,
     BackgroundImagePreviewPipe,
+    CreationButtonsComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,6 @@ import { BackgroundImagePreviewPipe } from './lection-creation/page-preview/back
     MatInputModule,
     HttpClientModule,
   ],
-  providers: [PagePreviewService],
+  providers: [PagePreviewService, LectionCreationComponent],
 })
 export class AdminViewModule {}

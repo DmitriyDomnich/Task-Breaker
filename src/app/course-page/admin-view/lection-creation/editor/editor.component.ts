@@ -1,9 +1,7 @@
 import {
   Component,
-  EventEmitter,
   HostBinding,
   OnInit,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -14,7 +12,6 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
-  @Output() onEditorCancel = new EventEmitter<void>();
   constructor() {}
 
   html = '';
@@ -22,9 +19,6 @@ export class EditorComponent implements OnInit {
 
   @HostBinding('class') get hostClass() {
     return 'host';
-  }
-  onApprove() {
-    console.log(this.html);
   }
 
   ngOnInit(): void {}
