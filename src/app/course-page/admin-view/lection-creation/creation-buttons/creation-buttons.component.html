@@ -1,4 +1,21 @@
-<button mat-raised-button color="warn" (click)="onCancel.emit()">Cancel</button>
-<button (click)="onApprove.emit()" color="primary" mat-raised-button>
-  Approve
+<ng-container *ngIf="hovered">
+  <span
+    (click)="openPanel()"
+    [style.left.px]="3"
+    *ngIf="closed; else opened"
+    class="material-icons-outlined open-close"
+  >
+    arrow_back_ios
+  </span>
+  <ng-template #opened>
+    <span (click)="closePanel()" class="material-icons-outlined open-close">
+      arrow_forward_ios
+    </span>
+  </ng-template>
+</ng-container>
+<button mat-fab color="warn" (click)="onCancel.emit()">
+  <span class="material-icons-outlined"> close </span>
+</button>
+<button (click)="onApprove.emit()" color="primary" mat-fab>
+  <span class="material-icons-outlined"> done </span>
 </button>

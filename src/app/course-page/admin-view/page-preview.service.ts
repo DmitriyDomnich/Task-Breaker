@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, Observable, OperatorFunction, pluck, tap } from 'rxjs';
+import { Observable, OperatorFunction, pluck } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class PagePreviewService {
   private apiEndpoint = 'https://api.peekalink.io/';
   private apiCheckEndpoint = 'https://api.peekalink.io/is-available/';

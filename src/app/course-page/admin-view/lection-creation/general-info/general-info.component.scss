@@ -1,4 +1,6 @@
 :host {
+  flex: 1 0 400px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,4 +35,9 @@ form {
       max-height: 500px;
     }
   }
+}
+@media (max-width: 875px) {
+  // :host {
+  //   flex-grow: 1;
+  // }
 }

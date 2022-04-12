@@ -5,7 +5,9 @@ import { map, Observable, of, switchMap } from 'rxjs';
 import { Course } from '../shared/models/course.model';
 import { Role } from '../shared/models/role.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class CoursePageService {
   getCourseInfo(courseId: string): Observable<any> {
     return this.db

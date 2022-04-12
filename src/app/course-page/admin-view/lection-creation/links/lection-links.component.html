@@ -1,9 +1,11 @@
-<hr />
 <div
   class="previews"
   *ngFor="let pagePreview of pagePreviews$ | async; let i = index"
 >
-  <page-preview [pagePreview]="pagePreview"></page-preview>
+  <page-preview [pagePreview]="pagePreview">
+    <preview-title> {{ pagePreview.title }} </preview-title>
+    <preview-info> {{ pagePreview.domain }} </preview-info>
+  </page-preview>
 </div>
 <form (submit)="linkName.valid && onSubmit($event)">
   <mat-form-field appearance="outline">

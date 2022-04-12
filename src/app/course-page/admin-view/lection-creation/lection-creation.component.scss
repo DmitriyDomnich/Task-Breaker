@@ -7,6 +7,11 @@ h1 {
   margin-block: 1em;
   text-align: center;
 }
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
 .container {
   display: flex;
   border: 2px solid var(--primary-color);

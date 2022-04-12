@@ -66,7 +66,6 @@ $dark-theme: mat.define-dark-theme(
   --warn-color: #{dark.$warn};
   --text-color: #{dark.$text};
 }
-
 .no-account {
   color: var(--warn-color);
   font-size: 75%;

@@ -12,20 +12,17 @@
   </div>
 </ng-container>
 <ng-template #chosen>
-  <ng-container *ngIf="creationWay === 'editor'; else links">
-    <general-info> </general-info>
-    <editor>
-      <creation-buttons
-        (onCancel)="creationWay = null"
-        buttons
-      ></creation-buttons>
-    </editor>
-  </ng-container>
-  <ng-template #links>
-    <general-info><lection-links links></lection-links> </general-info>
+  <div class="flex">
     <creation-buttons
       (onCancel)="creationWay = null"
       buttons
     ></creation-buttons>
-  </ng-template>
+    <general-info> </general-info>
+    <ng-container *ngIf="creationWay === 'editor'; else links">
+      <editor> </editor>
+    </ng-container>
+    <ng-template #links>
+      <lection-links links></lection-links>
+    </ng-template>
+  </div>
 </ng-template>

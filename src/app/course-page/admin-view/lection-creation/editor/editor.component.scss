@@ -1,17 +1,19 @@
 .host {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 1.5rem;
+  flex: 2 0 400px;
+
+  margin-inline: 1.5rem;
 }
 .container {
-  margin-block: 2em;
-  min-width: 400px;
   max-width: 1058px;
+  border-radius: 14px;
+  box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
   .ql-syntax {
     font-family: monospace;
   }
+}
+.ql-container {
+  max-height: 455px !important;
+  overflow: auto !important;
 }
 .ql-editor.ql-blank::before,
 .ql-options .ql-picker-item,
@@ -33,7 +35,7 @@
 }
 .editor-styles {
   font-size: 20px;
-  min-height: 500px;
+  min-height: 250px;
 }
 .ql-font-fira,
 [data-label="Fira Sans"]::before {
@@ -45,4 +47,9 @@
 .ql-font-roboto,
 [data-label="Roboto"]::before {
   font-family: "Roboto";
+}
+@media (max-width: 875px) {
+  .container {
+    margin-top: 1.25rem;
+  }
 }

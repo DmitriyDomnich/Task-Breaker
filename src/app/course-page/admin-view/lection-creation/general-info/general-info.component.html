@@ -4,6 +4,40 @@
     <mat-label> Lection title </mat-label>
     <input type="text" maxlength="40" required matInput />
   </mat-form-field>
+  <mat-form-field *ngIf="!isAddingNewTopic; else topicSelect">
+    <mat-label>Topic</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option> No topic </mat-option>
+      <mat-option
+        [style.border-bottom]="'2px solid gray'"
+        (onSelectionChange)="createTopic()"
+      >
+        Create new Topic
+      </mat-option>
+      <mat-option
+        *ngFor="let topic of topics$ | async as topics"
+        [value]="topic.id"
+      >
+        {{ topic.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <ng-template #topicSelect>
+    <mat-form-field>
+      <mat-label> Enter Topic name </mat-label>
+      <input type="text" matInput #topicInput />
+      <button (click)="isAddingNewTopic = false" mat-icon-button matSuffix>
+        <span class="material-icons-outlined"> close </span>
+      </button>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="onTopicCreated(topicInput.value)"
+      >
+        <span class="material-icons-outlined"> done </span>
+      </button>
+    </mat-form-field>
+  </ng-template>
   <mat-form-field color="accent" appearance="outline">
     <mat-label> Description </mat-label>
     <textarea matInput></textarea>
