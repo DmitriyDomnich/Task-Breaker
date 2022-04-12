@@ -1,10 +1,4 @@
-import {
-  Component,
-  HostListener,
-  Input,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'page-preview',
@@ -12,18 +6,7 @@ import {
   styleUrls: ['./page-preview.component.scss'],
 })
 export class PagePreviewComponent implements OnInit {
-  @Input() pagePreview: any;
+  constructor() {}
 
-  constructor(private renderer: Renderer2) {}
-
-  @HostListener('click') onClick() {
-    const a = <HTMLAnchorElement>this.renderer.createElement('a');
-    a.href = this.pagePreview.url;
-    a.target = '_blank';
-    a.click();
-  }
-
-  ngOnInit(): void {
-    console.log(this.pagePreview);
-  }
+  ngOnInit(): void {}
 }

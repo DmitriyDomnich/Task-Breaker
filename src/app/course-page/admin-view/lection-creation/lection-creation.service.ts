@@ -13,7 +13,6 @@ export class LectionCreationService {
     this.lection$.next(lection);
   }
   getTopics(courseId: string) {
-    console.log(courseId);
     return this.db
       .collection('courses')
       .doc(courseId)

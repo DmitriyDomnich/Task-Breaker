@@ -1,0 +1,45 @@
+<div class="previews">
+  <page-preview
+    [previewOpen]="pagePreview.url"
+    *ngFor="let pagePreview of creationItemsPreviews$ | async"
+  >
+    <preview-title> {{ pagePreview.title }} </preview-title>
+    <preview-image
+      ngProjectAs="preview-image"
+      [src]="pagePreview.previewUrl"
+    ></preview-image>
+    <preview-info> {{ pagePreview.info }} </preview-info>
+  </page-preview>
+</div>
+<div>
+  <mat-form-field appearance="outline">
+    <input
+      type="text"
+      placeholder="Enter link"
+      [pattern]="linkRegex"
+      [(ngModel)]="linkInput"
+      [ngModelOptions]="{ standalone: true }"
+      #linkName="ngModel"
+      matInput
+    />
+    <mat-error *ngIf="linkName.errors?.['pattern']">Not url</mat-error>
+  </mat-form-field>
+
+  <section>
+    <button
+      [disabled]="!linkInput.length"
+      mat-fab
+      (click)="linkName.valid && addLink()"
+    >
+      <span class="material-icons-outlined"> add </span>
+    </button>
+    <!-- <label for="file-input"> -->
+    <button mat-fab>
+      <label for="file-input">
+        <span class="material-icons-outlined"> file_present </span>
+      </label>
+      <input type="file" (input)="addFile($event)" id="file-input" />
+    </button>
+    <!-- </label> -->
+  </section>
+</div>

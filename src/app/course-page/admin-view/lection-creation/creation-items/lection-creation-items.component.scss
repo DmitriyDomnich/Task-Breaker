@@ -1,0 +1,37 @@
+:host {
+  flex: 2 0 405px;
+  position: relative;
+  margin-inline: 0.5rem;
+}
+mat-form-field {
+  display: block;
+  text-align: center;
+}
+button {
+  display: block;
+  margin: auto;
+  font-size: 24px;
+}
+section {
+  display: flex;
+  justify-content: center;
+  & * {
+    margin-inline: 0.25rem;
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+    span {
+      cursor: default;
+    }
+  }
+}
+input[type="file"] {
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.previews {
+  display: flex;
+  flex-wrap: wrap;
+}

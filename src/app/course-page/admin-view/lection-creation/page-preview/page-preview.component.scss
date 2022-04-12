@@ -6,7 +6,7 @@
   border-radius: 8px;
   display: flex;
   margin: 0.25rem;
-  max-width: 100%;
+  max-width: 550px;
   cursor: pointer;
   transition: all 250ms ease-in-out;
   :host-context(.dark-theme) &:hover {
@@ -15,19 +15,20 @@
   &:hover {
     border-color: var(--primary-color);
     background-color: color.scale(#f0f0f0, $lightness: -5%);
-    span {
+    & ::ng-deep .link-url {
       text-decoration: underline;
     }
   }
+  & ::ng-deep .img {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex: 0 1 56px;
+    height: 56px;
+    margin-right: 0.25rem;
+  }
 }
-.img {
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  flex: 1 0 56px;
-  height: 56px;
-  margin-right: 0.25rem;
-}
+// todo: fix css
 .info {
   flex: 2 0 300px;
   display: flex;

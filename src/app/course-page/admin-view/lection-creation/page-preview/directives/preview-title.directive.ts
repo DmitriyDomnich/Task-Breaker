@@ -1,8 +1,8 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'preview-info',
+  selector: 'preview-title',
 })
-export class PreviewInfoDirective {
+export class PreviewTitleDirective {
   constructor() {}
 }

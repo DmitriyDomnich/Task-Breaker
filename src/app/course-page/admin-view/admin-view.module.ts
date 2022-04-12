@@ -9,11 +9,16 @@ import { LectionCreationComponent } from './lection-creation/lection-creation.co
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { LectionLinksComponent } from './lection-creation/links/lection-links.component';
+import { LectionCreationItemsComponent } from './lection-creation/creation-items/lection-creation-items.component';
 import { GeneralInfoComponent } from './lection-creation/general-info/general-info.component';
 import { CreationButtonsComponent } from './lection-creation/creation-buttons/creation-buttons.component';
 import { MatSelectModule } from '@angular/material/select';
 import { PagePreviewModule } from './lection-creation/page-preview/page-preview.module';
+import { StoreModule } from '@ngrx/store';
+import {
+  creationItemsFeatureKey,
+  creationItemsReducer,
+} from './lection-creation/store/lection-creation.reducer';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,7 @@ import { PagePreviewModule } from './lection-creation/page-preview/page-preview.
     EditorComponent,
     LectionCreationComponent,
     GeneralInfoComponent,
-    LectionLinksComponent,
+    LectionCreationItemsComponent,
     CreationButtonsComponent,
   ],
   imports: [
@@ -34,6 +39,7 @@ import { PagePreviewModule } from './lection-creation/page-preview/page-preview.
     MatInputModule,
     MatSelectModule,
     PagePreviewModule,
+    StoreModule.forFeature(creationItemsFeatureKey, creationItemsReducer),
   ],
 })
 export class AdminViewModule {}

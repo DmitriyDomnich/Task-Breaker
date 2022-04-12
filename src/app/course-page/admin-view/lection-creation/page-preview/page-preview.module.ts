@@ -1,18 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BackgroundImagePreviewPipe } from './background-image-preview.pipe';
 import { PagePreviewComponent } from './page-preview.component';
-import { PreviewTitleDirective } from './preview-title.directive';
-import { PreviewInfoDirective } from './preview-info.directive';
+import { PreviewTitleDirective } from './directives/preview-title.directive';
+import { PreviewInfoDirective } from './directives/preview-info.directive';
+import { PreviewOpenDirective } from './directives/preview-open.directive';
+import { PreviewImageDirective } from './directives/preview-image.directive';
 
 @NgModule({
   declarations: [
-    BackgroundImagePreviewPipe,
     PagePreviewComponent,
     PreviewTitleDirective,
     PreviewInfoDirective,
+    PreviewOpenDirective,
+    PreviewImageDirective,
   ],
   imports: [CommonModule],
-  exports: [PagePreviewComponent, PreviewTitleDirective, PreviewInfoDirective],
+  exports: [
+    PagePreviewComponent,
+    PreviewTitleDirective,
+    PreviewInfoDirective,
+    PreviewOpenDirective,
+    PreviewImageDirective,
+  ],
 })
 export class PagePreviewModule {}
