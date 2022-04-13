@@ -35,3 +35,12 @@ input[type="file"] {
   display: flex;
   flex-wrap: wrap;
 }
+#file-add {
+  margin-inline: -0.1rem;
+  padding: 0.9rem;
+}
+@media (max-width: 850px) {
+  .previews {
+    margin-top: 0.75rem;
+  }
+}

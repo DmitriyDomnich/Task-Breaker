@@ -13,16 +13,13 @@
 </ng-container>
 <ng-template #chosen>
   <div class="flex">
-    <creation-buttons
-      (onCancel)="creationWay = null"
-      buttons
-    ></creation-buttons>
+    <creation-buttons (onCancel)="creationWay = null"></creation-buttons>
     <general-info> </general-info>
     <ng-container *ngIf="creationWay === 'editor'; else links">
       <editor> </editor>
     </ng-container>
     <ng-template #links>
-      <lection-links links></lection-links>
+      <lection-creation-items></lection-creation-items>
     </ng-template>
   </div>
 </ng-template>

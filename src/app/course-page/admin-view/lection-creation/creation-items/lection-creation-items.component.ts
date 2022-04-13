@@ -16,7 +16,7 @@ import { CreationItemsState } from '../store/lection-creation.reducer';
 import { selectAllCreationItems } from '../store/lection-creation.selectors';
 
 @Component({
-  selector: 'lection-links',
+  selector: 'lection-creation-items',
   templateUrl: './lection-creation-items.component.html',
   styleUrls: ['./lection-creation-items.component.scss'],
 })

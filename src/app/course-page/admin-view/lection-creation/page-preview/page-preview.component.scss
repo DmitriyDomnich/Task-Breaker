@@ -6,7 +6,6 @@
   border-radius: 8px;
   display: flex;
   margin: 0.25rem;
-  max-width: 550px;
   cursor: pointer;
   transition: all 250ms ease-in-out;
   :host-context(.dark-theme) &:hover {
@@ -23,14 +22,13 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    flex: 0 1 56px;
+    flex: 0 0 56px;
     height: 56px;
     margin-right: 0.25rem;
   }
 }
 // todo: fix css
 .info {
-  flex: 2 0 300px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -39,4 +37,11 @@
     text-overflow: ellipsis;
     margin-bottom: 0.25rem;
   }
+}
+@media (max-width: 650px) {
+  // :host {
+  //   flex-grow: 1;
+  //   flex-shrink: 0;
+  //   max-width: 300px;
+  // }
 }
