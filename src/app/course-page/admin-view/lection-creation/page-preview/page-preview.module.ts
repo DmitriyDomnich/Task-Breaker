@@ -5,6 +5,7 @@ import { PreviewTitleDirective } from './directives/preview-title.directive';
 import { PreviewInfoDirective } from './directives/preview-info.directive';
 import { PreviewOpenDirective } from './directives/preview-open.directive';
 import { PreviewImageDirective } from './directives/preview-image.directive';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { PreviewImageDirective } from './directives/preview-image.directive';
     PreviewOpenDirective,
     PreviewImageDirective,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   exports: [
     PagePreviewComponent,
     PreviewTitleDirective,

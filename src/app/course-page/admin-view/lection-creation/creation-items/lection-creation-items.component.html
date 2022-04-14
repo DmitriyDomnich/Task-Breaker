@@ -1,16 +1,4 @@
-<div class="previews">
-  <page-preview
-    [previewOpen]="pagePreview.url"
-    *ngFor="let pagePreview of creationItemsPreviews$ | async"
-  >
-    <preview-title> {{ pagePreview.title }} </preview-title>
-    <preview-image
-      ngProjectAs="preview-image"
-      [src]="pagePreview.previewUrl"
-    ></preview-image>
-    <preview-info> {{ pagePreview.info }} </preview-info>
-  </page-preview>
-</div>
+<previews [previews]="creationItemsPreviews$ | async"> </previews>
 <div>
   <mat-form-field appearance="outline">
     <input

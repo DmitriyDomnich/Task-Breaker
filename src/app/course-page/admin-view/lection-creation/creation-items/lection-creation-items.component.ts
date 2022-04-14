@@ -14,6 +14,7 @@ import { PagePreviewService } from '../../page-preview.service';
 import { LectionCreationActions } from '../store/lection-creation.actions';
 import { CreationItemsState } from '../store/lection-creation.reducer';
 import { selectAllCreationItems } from '../store/lection-creation.selectors';
+import { v4 as createId } from 'uuid';
 
 @Component({
   selector: 'lection-creation-items',
@@ -41,6 +42,8 @@ export class LectionCreationItemsComponent implements OnInit {
       info: file.type,
       title: file.name,
       previewUrl: 'assets/images/file-image.png',
+      previewType: 'file',
+      id: createId(),
     };
     this.store.dispatch(LectionCreationActions.addFile(filePreview));
   }
@@ -63,6 +66,8 @@ export class LectionCreationItemsComponent implements OnInit {
               info: linkInput,
               previewUrl: 'assets/images/no-link-preview.jpg',
               url: linkInput,
+              previewType: 'link',
+              id: createId(),
             })
           );
           return EMPTY;
@@ -74,6 +79,8 @@ export class LectionCreationItemsComponent implements OnInit {
               title: previewData.title,
               previewUrl: this.formatPreviewUrl(previewData),
               url: previewData.url,
+              previewType: <any>'link',
+              id: createId(),
             }))
           )
         ),

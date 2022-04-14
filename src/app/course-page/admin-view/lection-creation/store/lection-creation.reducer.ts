@@ -25,11 +25,15 @@ export const creationItemsReducer = createReducer(
       links,
     };
   }),
-  on(LectionCreationActions.removeLink, (state, linkToRemove) => {
-    console.log(linkToRemove);
+  on(LectionCreationActions.removeItem, (state, itemToRemove) => {
+    const allItems = [...state.files, ...state.links];
+    const filteredItems: CreationPreview[] = allItems.filter(
+      (item) => item.id !== itemToRemove.id
+    );
+
     return {
-      ...state,
-      links: state.links.filter((link) => link !== linkToRemove),
+      files: filteredItems.filter((item) => item.previewType === 'file'),
+      links: filteredItems.filter((item) => item.previewType === 'link'),
     };
   }),
   //#endregion

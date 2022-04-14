@@ -19,6 +19,7 @@ import {
   creationItemsFeatureKey,
   creationItemsReducer,
 } from './lection-creation/store/lection-creation.reducer';
+import { PreviewsComponent } from './lection-creation/previews/previews.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {
     GeneralInfoComponent,
     LectionCreationItemsComponent,
     CreationButtonsComponent,
+    PreviewsComponent,
   ],
   imports: [
     CommonModule,

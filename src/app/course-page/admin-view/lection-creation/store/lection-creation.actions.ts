@@ -3,8 +3,8 @@ import { CreationPreview } from 'src/app/course-page/models/creation-preview.mod
 
 export namespace LectionCreationActions {
   export const addLink = createAction('Add Link', props<CreationPreview>());
-  export const removeLink = createAction(
-    'Remove Link',
+  export const removeItem = createAction(
+    'Remove Item',
     props<CreationPreview>()
   );
 
