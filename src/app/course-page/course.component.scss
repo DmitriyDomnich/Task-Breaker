@@ -1,6 +1,29 @@
 :host {
   position: relative;
 }
+#file-view {
+  display: block;
+  max-width: 700px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(calc(-50% - 10px));
+  top: 10vh;
+  height: 85vh;
+  width: 100%;
+  button {
+    position: absolute;
+    top: -1rem;
+    z-index: 1;
+    &#close {
+      right: -1rem;
+    }
+  }
+  pdf-viewer {
+    display: block;
+    height: 100%;
+  }
+}
 header {
   display: flex;
   position: relative;

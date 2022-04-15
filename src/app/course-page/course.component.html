@@ -1,3 +1,22 @@
+<ng-container *ngIf="docUrl$ | async as docUrl">
+  <div id="file-view">
+    <button
+      (click)="docViewerService.setDoc(null)"
+      mat-mini-fab
+      color="primary"
+      id="close"
+    >
+      <span class="material-icons-outlined"> close </span>
+    </button>
+    <pdf-viewer
+      [src]="docUrl"
+      [show-all]="true"
+      [original-size]="false"
+      [render-text]="true"
+      [show-borders]="true"
+    ></pdf-viewer>
+  </div>
+</ng-container>
 <ng-container *ngIf="course$ | async as course">
   <header>
     <section [courseCover]="course.coverURL"></section>

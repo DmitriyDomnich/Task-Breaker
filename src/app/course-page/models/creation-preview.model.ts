@@ -5,4 +5,5 @@ export interface CreationPreview {
   previewUrl: string;
   url?: string;
   previewType: 'file' | 'link';
+  file?: File;
 }

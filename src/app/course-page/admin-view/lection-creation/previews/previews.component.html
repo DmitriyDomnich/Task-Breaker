@@ -1,12 +1,9 @@
 <page-preview
   [preview]="pagePreview"
-  [previewOpen]="pagePreview.url"
+  [previewOpen]="pagePreview"
   *ngFor="let pagePreview of previews"
 >
   <preview-title> {{ pagePreview.title }} </preview-title>
-  <preview-image
-    ngProjectAs="preview-image"
-    [src]="pagePreview.previewUrl"
-  ></preview-image>
+  <preview-image [src]="pagePreview.previewUrl"></preview-image>
   <preview-info> {{ pagePreview.info }} </preview-info>
 </page-preview>

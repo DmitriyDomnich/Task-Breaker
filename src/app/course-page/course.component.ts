@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap, tap } from 'rxjs';
+import { DocViewerService } from './doc-viewer.service';
 import { Course } from '../shared/models/course.model';
 import { Role } from '../shared/models/role.model';
 import { AdHostDirective } from './ad-host.directive';
@@ -17,11 +18,13 @@ export class CourseComponent implements OnInit {
   @ViewChild(AdHostDirective, { static: true }) adHost: AdHostDirective;
 
   role: Role;
+  docUrl$: Observable<string | Uint8Array | null>;
   course$: Observable<Course>;
 
   constructor(
     private route: ActivatedRoute,
-    private coursePageService: CoursePageService
+    private coursePageService: CoursePageService,
+    public docViewerService: DocViewerService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +45,7 @@ export class CourseComponent implements OnInit {
         return this.coursePageService.getCourseInfo(param.get('id')!);
       })
     );
+    this.docUrl$ = this.docViewerService.docSet$;
   }
 
   roleChanged(role: Role) {

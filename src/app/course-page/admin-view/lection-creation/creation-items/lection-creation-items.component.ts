@@ -44,6 +44,7 @@ export class LectionCreationItemsComponent implements OnInit {
       previewUrl: 'assets/images/file-image.png',
       previewType: 'file',
       id: createId(),
+      file,
     };
     this.store.dispatch(LectionCreationActions.addFile(filePreview));
   }
