@@ -65,6 +65,7 @@ $dark-theme: mat.define-dark-theme(
   --accent-color: #{dark.$accent};
   --warn-color: #{dark.$warn};
   --text-color: #{dark.$text};
+  --quill-border-color: #fafafa;
 }
 .no-account {
   color: var(--warn-color);

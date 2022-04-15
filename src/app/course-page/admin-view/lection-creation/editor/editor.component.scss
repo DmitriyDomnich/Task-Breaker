@@ -8,6 +8,7 @@
   max-width: 1058px;
   border-radius: 14px;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--quill-border-color);
   .ql-syntax {
     font-family: monospace;
   }
@@ -16,6 +17,12 @@
 .ql-container {
   max-height: 455px !important;
   overflow: auto !important;
+  border: none !important;
+}
+.ql-toolbar {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
 }
 .ql-editor.ql-blank::before,
 .ql-options .ql-picker-item,
