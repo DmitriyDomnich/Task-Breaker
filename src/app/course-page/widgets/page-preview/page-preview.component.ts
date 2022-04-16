@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
-import { LectionCreationActions } from '../store/lection-creation.actions';
-import { CreationItemsState } from '../store/lection-creation.reducer';
+import { LectionCreationActions } from '../../admin-view/lection-creation/store/lection-creation.actions';
+import { CreationItemsState } from '../../admin-view/lection-creation/store/lection-creation.reducer';
 
 @Component({
   selector: 'page-preview',

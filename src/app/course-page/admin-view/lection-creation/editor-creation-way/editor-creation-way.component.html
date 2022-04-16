@@ -1,0 +1,8 @@
+<editor></editor>
+<previews [previews]="creationFiles$ | async"></previews>
+<button mat-fab>
+  <label for="file-input">
+    <span id="file-add" class="material-icons-outlined"> file_present </span>
+  </label>
+  <input type="file" (input)="addFile($event)" id="file-input" />
+</button>

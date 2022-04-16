@@ -10,7 +10,6 @@ export class DocViewerService {
 
   constructor() {}
   setDoc(docBlob: Uint8Array | null) {
-    console.log(docBlob);
     this.docSet.next(docBlob);
   }
 }
