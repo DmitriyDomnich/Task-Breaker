@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
 import { LectionCreationActions } from './lection-creation.actions';
+import { v4 as createId } from 'uuid';
 
 export interface CreationItemsState {
   files: CreationPreview[];
@@ -17,7 +18,8 @@ const initialState: CreationItemsState = {
 export const creationItemsReducer = createReducer(
   initialState,
   //#region LINKS
-  on(LectionCreationActions.addLink, (state, link) => {
+  on(LectionCreationActions.addLink, (state, { link }) => {
+    console.log(link);
     const links: CreationPreview[] = state.links.slice();
     links.unshift(link);
     return {
@@ -38,19 +40,20 @@ export const creationItemsReducer = createReducer(
   }),
   //#endregion
   //#region FILES
-  on(LectionCreationActions.addFile, (state, file) => {
+  on(LectionCreationActions.addFile, (state, { file }) => {
+    const filePreview: CreationPreview = {
+      info: file.type,
+      title: file.name,
+      previewUrl: 'assets/images/file-image.png',
+      previewType: 'file',
+      id: createId(),
+      file,
+    };
     const files: CreationPreview[] = state.files.slice();
-    files.unshift(file);
+    files.unshift(filePreview);
     return {
       ...state,
       files,
-    };
-  }),
-  on(LectionCreationActions.removeFile, (state, fileToRemove) => {
-    console.log(fileToRemove);
-    return {
-      ...state,
-      files: state.files.filter((link) => link !== fileToRemove),
     };
   })
   //#endregion

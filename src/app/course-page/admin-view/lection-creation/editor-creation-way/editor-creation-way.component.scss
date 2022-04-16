@@ -1,0 +1,23 @@
+:host {
+  flex: 1 0 400px;
+  margin-left: 0.75rem;
+}
+button {
+  margin: auto;
+  display: block;
+  margin-top: 0.5rem;
+}
+previews {
+  margin-top: 0.75rem;
+}
+#file-add {
+  margin-inline: -0.1rem;
+  padding: 0.9rem;
+  font-size: 24px;
+  cursor: pointer;
+}
+input[type="file"] {
+  width: 0;
+  height: 0;
+  position: absolute;
+}

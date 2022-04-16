@@ -40,5 +40,9 @@ export class CreationButtonsComponent implements OnInit {
   }
   constructor(private elRef: ElementRef<HTMLElement>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (window.innerWidth < 650) {
+      this.hovered = true;
+    }
+  }
 }

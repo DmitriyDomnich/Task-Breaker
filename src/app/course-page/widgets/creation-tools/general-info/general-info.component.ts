@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, shareReplay, tap } from 'rxjs';
-import { LectionCreationService } from '../lection-creation.service';
+import { LectionCreationService } from '../../../admin-view/lection-creation/lection-creation.service';
 
 @Component({
   selector: 'general-info',

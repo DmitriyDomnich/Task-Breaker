@@ -17,9 +17,5 @@ export class EditorComponent implements OnInit {
   html = '';
   uiReady = false;
 
-  @HostBinding('class') get hostClass() {
-    return 'host';
-  }
-
   ngOnInit(): void {}
 }

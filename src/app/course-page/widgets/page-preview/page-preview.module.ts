@@ -6,10 +6,12 @@ import { PreviewInfoDirective } from './directives/preview-info.directive';
 import { PreviewOpenDirective } from './directives/preview-open.directive';
 import { PreviewImageDirective } from './directives/preview-image.directive';
 import { MatButtonModule } from '@angular/material/button';
+import { PreviewsComponent } from './previews/previews.component';
 
 @NgModule({
   declarations: [
     PagePreviewComponent,
+    PreviewsComponent,
     PreviewTitleDirective,
     PreviewInfoDirective,
     PreviewOpenDirective,
@@ -18,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatButtonModule],
   exports: [
     PagePreviewComponent,
+    PreviewsComponent,
     PreviewTitleDirective,
     PreviewInfoDirective,
     PreviewOpenDirective,

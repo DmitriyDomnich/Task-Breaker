@@ -2,8 +2,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+
 @media (max-width: 850px) {
-  .previews {
+  :host {
     margin-top: 0.75rem;
   }
 }
