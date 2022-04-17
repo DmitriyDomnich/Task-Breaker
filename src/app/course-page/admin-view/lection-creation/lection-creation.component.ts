@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LectionCreationService } from './lection-creation.service';
 
 @Component({
   selector: 'lection-creation',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class LectionCreationComponent implements OnInit {
   creationWay: null | 'editor' | 'links' = null;
 
-  constructor() {}
+  constructor(public lectionCreationService: LectionCreationService) {}
 
   ngOnInit(): void {}
 }

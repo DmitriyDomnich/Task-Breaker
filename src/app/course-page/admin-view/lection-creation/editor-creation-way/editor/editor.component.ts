@@ -1,9 +1,12 @@
 import {
   Component,
+  EventEmitter,
   HostBinding,
   OnInit,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
+import { LectionCreationService } from '../../lection-creation.service';
 
 @Component({
   selector: 'editor',
@@ -12,10 +15,15 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class EditorComponent implements OnInit {
-  constructor() {}
+  @Output() onLectionCreationApprove = new EventEmitter<string>();
+  constructor(private lectionCreationService: LectionCreationService) {}
 
   html = '';
   uiReady = false;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.lectionCreationService.createLection$.subscribe((_) =>
+      this.onLectionCreationApprove.emit(this.html)
+    );
+  }
 }

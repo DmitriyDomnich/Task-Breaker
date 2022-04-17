@@ -13,8 +13,14 @@
 </ng-container>
 <ng-template #chosen>
   <div class="flex">
-    <creation-buttons (onCancel)="creationWay = null"></creation-buttons>
-    <general-info> </general-info>
+    <creation-buttons
+      (onApprove)="lectionCreationService.onLectionCreationApproval()"
+      (onCancel)="creationWay = null"
+    ></creation-buttons>
+    <general-info
+      (onLectionCreationApprove)="lectionCreationService.addGeneralInfo($event)"
+    >
+    </general-info>
     <ng-container *ngIf="creationWay === 'editor'; else links">
       <editor-creation-way></editor-creation-way>
     </ng-container>

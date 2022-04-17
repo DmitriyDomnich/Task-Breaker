@@ -1,5 +1,15 @@
-<editor></editor>
-<previews [previews]="creationFiles$ | async"></previews>
+<editor
+  (onLectionCreationApprove)="lectionCreationService.addEditorData($event)"
+></editor>
+<ng-container
+  *ngTemplateOutlet="previews; context: { $implicit: creationFiles$ | async }"
+></ng-container>
+<ng-template #previews let-files>
+  <previews
+    (onCreationApproval)="lectionCreationService.addFiles(files)"
+    [previews]="files"
+  ></previews>
+</ng-template>
 <button mat-fab>
   <label for="file-input">
     <span id="file-add" class="material-icons-outlined"> file_present </span>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
+import { LectionCreationService } from '../lection-creation.service';
 import { LectionCreationActions } from '../store/lection-creation.actions';
 import { CreationItemsState } from '../store/lection-creation.reducer';
 import { selectFiles } from '../store/lection-creation.selectors';
@@ -14,7 +15,10 @@ import { selectFiles } from '../store/lection-creation.selectors';
 export class EditorCreationWayComponent implements OnInit {
   creationFiles$: Observable<CreationPreview[]>;
 
-  constructor(private store: Store<CreationItemsState>) {}
+  constructor(
+    private store: Store<CreationItemsState>,
+    public lectionCreationService: LectionCreationService
+  ) {}
 
   ngOnInit(): void {
     this.creationFiles$ = this.store.select(selectFiles);

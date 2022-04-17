@@ -1,4 +1,23 @@
-<previews [previews]="creationItemsPreviews$ | async"> </previews>
+<ng-container
+  *ngTemplateOutlet="
+    previews;
+    context: {
+      all: creationItemsPreviews$ | async,
+      files: lectionFiles$ | async,
+      links: lectionLinks$ | async
+    }
+  "
+></ng-container>
+<ng-template #previews let-all="all" let-files="files" let-links="links">
+  <previews
+    (onCreationApproval)="
+      lectionCreationService.addFiles(files);
+      lectionCreationService.addLinks(links)
+    "
+    [previews]="all"
+  >
+  </previews>
+</ng-template>
 <div>
   <mat-form-field appearance="outline">
     <input
