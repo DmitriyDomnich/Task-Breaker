@@ -7,6 +7,7 @@ import { PreviewOpenDirective } from './directives/preview-open.directive';
 import { PreviewImageDirective } from './directives/preview-image.directive';
 import { MatButtonModule } from '@angular/material/button';
 import { PreviewsComponent } from './previews/previews.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { PreviewsComponent } from './previews/previews.component';
     PreviewOpenDirective,
     PreviewImageDirective,
   ],
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, MatProgressSpinnerModule],
   exports: [
     PagePreviewComponent,
     PreviewsComponent,

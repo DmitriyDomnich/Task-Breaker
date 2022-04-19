@@ -21,10 +21,7 @@
       >
         Create new Topic
       </mat-option>
-      <mat-option
-        *ngFor="let topic of topics$ | async as topics"
-        [value]="topic.id"
-      >
+      <mat-option *ngFor="let topic of topics" [value]="topic.id">
         {{ topic.name }}
       </mat-option>
     </mat-select>

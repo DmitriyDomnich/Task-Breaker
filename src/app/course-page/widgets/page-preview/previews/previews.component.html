@@ -1,9 +1,12 @@
-<page-preview
-  [preview]="pagePreview"
-  [previewOpen]="pagePreview"
-  *ngFor="let pagePreview of previews"
->
-  <preview-title> {{ pagePreview.title }} </preview-title>
-  <preview-image [src]="pagePreview.previewUrl"></preview-image>
-  <preview-info> {{ pagePreview.info }} </preview-info>
-</page-preview>
+<ng-container *ngFor="let pagePreview of previews">
+  <ng-container *ngIf="pagePreview; else loading">
+    <page-preview [preview]="pagePreview" [previewOpen]="pagePreview">
+      <preview-title> {{ pagePreview.title }} </preview-title>
+      <preview-image [src]="pagePreview.previewUrl"></preview-image>
+      <preview-info> {{ pagePreview.info }} </preview-info>
+    </page-preview>
+  </ng-container>
+  <ng-template #loading>
+    <page-preview [preview]="pagePreview"></page-preview>
+  </ng-template>
+</ng-container>

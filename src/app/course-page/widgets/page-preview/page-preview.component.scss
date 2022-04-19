@@ -28,7 +28,12 @@
     height: 56px;
     margin-right: 0.25rem;
   }
+  &.loading {
+    justify-content: center;
+    align-items: center;
+  }
 }
+
 // todo: fix css
 .content {
   flex-grow: 1;

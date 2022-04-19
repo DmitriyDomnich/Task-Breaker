@@ -1,4 +1,4 @@
-<ng-container *ngIf="hovered">
+<ng-container *ngIf="hovered && !loading">
   <span
     (click)="openPanel()"
     [style.left.px]="3"
@@ -13,9 +13,18 @@
     </span>
   </ng-template>
 </ng-container>
-<button mat-fab color="warn" (click)="onCancel.emit()">
-  <span class="material-icons-outlined"> close </span>
-</button>
-<button (click)="onApprove.emit()" color="primary" mat-fab>
-  <span class="material-icons-outlined"> done </span>
-</button>
+<ng-container *ngIf="loading; else notLoading">
+  <mat-spinner mode="indeterminate" [diameter]="40"></mat-spinner>
+</ng-container>
+<ng-template #notLoading>
+  <button (click)="onCancel.emit()" color="warn" mat-fab>
+    <span class="material-icons-outlined"> close </span>
+  </button>
+  <button
+    (click)="onApprove.emit(); loading = true; hovered = true"
+    color="primary"
+    mat-fab
+  >
+    <span class="material-icons-outlined"> done </span>
+  </button>
+</ng-template>

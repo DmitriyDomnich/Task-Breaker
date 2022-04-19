@@ -12,7 +12,7 @@ export namespace LectionCreationActions {
   );
   export const addLink = createAction(
     'Add Link',
-    props<{ link: CreationPreview }>()
+    props<{ link: CreationPreview | null }>()
   );
   export const removeItem = createAction(
     'Remove Item',

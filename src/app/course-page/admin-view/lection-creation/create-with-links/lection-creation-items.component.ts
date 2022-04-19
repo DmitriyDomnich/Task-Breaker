@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
 import { LectionCreationService } from '../lection-creation.service';
 import { LectionCreationActions } from '../store/lection-creation.actions';
@@ -17,9 +17,9 @@ import {
   styleUrls: ['./lection-creation-items.component.scss'],
 })
 export class LectionCreationItemsComponent implements OnInit {
-  creationItemsPreviews$: Observable<CreationPreview[]>;
+  creationItemsPreviews$: Observable<Array<CreationPreview | null>>;
   lectionFiles$: Observable<CreationPreview[]>;
-  lectionLinks$: Observable<CreationPreview[]>;
+  lectionLinks$: Observable<Array<CreationPreview | null>>;
   linkInput = '';
   linkRegex =
     /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
@@ -40,6 +40,8 @@ export class LectionCreationItemsComponent implements OnInit {
     this.store.dispatch(LectionCreationActions.addFile({ file }));
   }
   addLink() {
+    this.store.dispatch(LectionCreationActions.addLink({ link: null })); // loading
+
     const linkInput = this.linkInput;
     this.linkInput = '';
 

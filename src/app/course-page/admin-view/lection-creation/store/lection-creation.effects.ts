@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, filter, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { map, mergeMap, of, switchMap, tap } from 'rxjs';
 import { PagePreviewService } from '../../page-preview.service';
 import { LectionCreationActions } from './lection-creation.actions';
 import { v4 as createId } from 'uuid';
@@ -15,7 +15,6 @@ export class LectionCreationEffects {
           switchMap((exists) => {
             if (exists) {
               return this.pagePreviewService.getPagePreviewJSON(url).pipe(
-                tap(console.log),
                 map((previewData: any) => ({
                   type: LectionCreationActions.addLink.type,
                   link: {

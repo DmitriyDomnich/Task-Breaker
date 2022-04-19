@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { CrudApprovalService } from './crud-approval.service';
 
 @Component({
   selector: 'creation-buttons',
@@ -17,17 +18,25 @@ export class CreationButtonsComponent implements OnInit {
   @Output() onCancel = new EventEmitter();
   @Output() onApprove = new EventEmitter();
 
+  loading = false;
   closed = false;
   hovered = false;
 
   @HostListener('mouseover') onHover() {
-    this.hovered = true;
+    if (!this.loading) {
+      this.hovered = true;
+    }
   }
   @HostListener('mouseleave') onMouseLeave() {
-    if (!this.closed) this.hovered = false;
+    if (!this.closed && !this.loading) {
+      this.hovered = false;
+    }
   }
   @HostBinding('class.outline-panel') get outline() {
     return this.hovered;
+  }
+  @HostBinding('class.loading') get loadingClass() {
+    return this.loading;
   }
 
   openPanel() {
@@ -38,9 +47,13 @@ export class CreationButtonsComponent implements OnInit {
     this.closed = true;
     this.elRef.nativeElement.className = 'close outline-panel';
   }
-  constructor(private elRef: ElementRef<HTMLElement>) {}
+  constructor(
+    private elRef: ElementRef<HTMLElement>,
+    private crudApprovalService: CrudApprovalService
+  ) {}
 
   ngOnInit(): void {
+    this.crudApprovalService.approved$.subscribe((_) => (this.loading = false));
     if (window.innerWidth < 650) {
       this.hovered = true;
     }

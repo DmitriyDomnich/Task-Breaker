@@ -1,14 +1,23 @@
-<ng-content select="preview-image"></ng-content>
-<div class="content">
-  <div class="info">
-    <h2 class="title">
-      <ng-content select="preview-title"></ng-content>
-    </h2>
-    <ng-content select="preview-info"></ng-content>
+<ng-container *ngIf="preview; else loading">
+  <ng-content select="preview-image"></ng-content>
+  <div class="content">
+    <div class="info">
+      <h2 class="title">
+        <ng-content select="preview-title"></ng-content>
+      </h2>
+      <ng-content select="preview-info"></ng-content>
+    </div>
+    <div class="remove">
+      <button (click)="removeItem($event)" mat-mini-fab color="primary">
+        <span class="material-icons-outlined"> close </span>
+      </button>
+    </div>
   </div>
-  <div class="remove">
-    <button (click)="removeItem($event)" mat-mini-fab color="primary">
-      <span class="material-icons-outlined"> close </span>
-    </button>
-  </div>
-</div>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner
+    color="primary"
+    [diameter]="50"
+    mode="indeterminate"
+  ></mat-spinner>
+</ng-template>

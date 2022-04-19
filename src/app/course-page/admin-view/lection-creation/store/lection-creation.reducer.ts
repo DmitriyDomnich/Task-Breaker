@@ -5,7 +5,7 @@ import { v4 as createId } from 'uuid';
 
 export interface CreationItemsState {
   files: CreationPreview[];
-  links: CreationPreview[];
+  links: Array<CreationPreview | null>;
 }
 
 export const creationItemsFeatureKey = 'creation-items';
@@ -20,8 +20,13 @@ export const creationItemsReducer = createReducer(
   //#region LINKS
   on(LectionCreationActions.addLink, (state, { link }) => {
     console.log(link);
-    const links: CreationPreview[] = state.links.slice();
-    links.unshift(link);
+    const links: Array<CreationPreview | null> = state.links.slice();
+    if (link) {
+      const loadingLinkIndex = links.findIndex((link) => !link);
+      links[loadingLinkIndex] = link;
+    } else {
+      links.unshift(link);
+    }
     return {
       ...state,
       links,
@@ -29,13 +34,17 @@ export const creationItemsReducer = createReducer(
   }),
   on(LectionCreationActions.removeItem, (state, itemToRemove) => {
     const allItems = [...state.files, ...state.links];
-    const filteredItems: CreationPreview[] = allItems.filter(
-      (item) => item.id !== itemToRemove.id
+    const filteredItems: any = allItems.filter(
+      (item) => item?.id !== itemToRemove.id
     );
 
     return {
-      files: filteredItems.filter((item) => item.previewType === 'file'),
-      links: filteredItems.filter((item) => item.previewType === 'link'),
+      files: filteredItems.filter(
+        (item: CreationPreview) => item.previewType === 'file'
+      ),
+      links: filteredItems.filter(
+        (item: CreationPreview) => item.previewType === 'link'
+      ),
     };
   }),
   //#endregion

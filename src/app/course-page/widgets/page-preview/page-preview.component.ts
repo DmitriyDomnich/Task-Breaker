@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
 import { LectionCreationActions } from '../../admin-view/lection-creation/store/lection-creation.actions';
@@ -10,13 +10,17 @@ import { CreationItemsState } from '../../admin-view/lection-creation/store/lect
   styleUrls: ['./page-preview.component.scss'],
 })
 export class PagePreviewComponent implements OnInit {
-  @Input() preview: CreationPreview;
+  @Input() preview: CreationPreview | null;
   constructor(public store: Store<CreationItemsState>) {}
+
+  @HostBinding('class.loading') get loadingClass() {
+    return !this.preview;
+  }
 
   removeItem(clickEvent: MouseEvent) {
     clickEvent.stopPropagation();
 
-    this.store.dispatch(LectionCreationActions.removeItem(this.preview));
+    this.store.dispatch(LectionCreationActions.removeItem(this.preview!));
   }
 
   ngOnInit(): void {}

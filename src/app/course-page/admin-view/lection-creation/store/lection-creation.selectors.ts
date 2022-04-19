@@ -18,6 +18,6 @@ export const selectLinks = createSelector(selectCreationItems, ({ links }) => {
 export const selectAllCreationItems = createSelector(
   selectCreationItems,
   ({ files, links }) => {
-    return files.concat(links);
+    return [...files, ...links];
   }
 );

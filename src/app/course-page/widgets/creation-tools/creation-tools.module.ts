@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [GeneralInfoComponent, CreationButtonsComponent],
@@ -17,6 +18,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
   ],
   exports: [GeneralInfoComponent, CreationButtonsComponent],
 })

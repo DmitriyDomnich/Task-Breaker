@@ -8,8 +8,10 @@ import { CreationPreview } from 'src/app/course-page/models/creation-preview.mod
   styleUrls: ['./previews.component.scss'],
 })
 export class PreviewsComponent implements OnInit {
-  @Input() previews: CreationPreview[] | null;
-  @Output() onCreationApproval = new EventEmitter<CreationPreview[] | null>();
+  @Input() previews: Array<CreationPreview | null>;
+  @Output() onCreationApproval = new EventEmitter<
+    Array<CreationPreview | null>
+  >();
 
   constructor(private lectionCreationService: LectionCreationService) {}
 

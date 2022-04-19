@@ -28,6 +28,13 @@ $component-right-offset: 10px;
       color: var(--primary-color);
     }
   }
+  &.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    min-width: 100px;
+  }
   &.close {
     right: -($component-right-offset * 13) - 10;
   }
