@@ -1,8 +1,8 @@
 import { Directive, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[adHost]',
+  selector: '[insertDynamicContent]',
 })
-export class AdHostDirective {
+export class InsertDynamicContentDirective {
   constructor(public viewContainerRef: ViewContainerRef) {}
 }

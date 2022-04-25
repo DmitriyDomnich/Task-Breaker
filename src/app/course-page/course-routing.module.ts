@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LectionCreationComponent } from './admin-view/lection-creation/lection-creation.component';
 import { CourseComponent } from './course.component';
 
 const routes: Routes = [
@@ -9,8 +8,16 @@ const routes: Routes = [
     component: CourseComponent,
     children: [
       {
-        path: 'lection-create',
-        component: LectionCreationComponent,
+        path: 'lections',
+        loadChildren: () =>
+          import('./lections/lections.module').then((m) => m.LectionsModule),
+      },
+      {
+        path: 'assignments',
+        loadChildren: () =>
+          import('./assignments/assignments.module').then(
+            (m) => m.AssignmentsModule
+          ),
       },
     ],
   },

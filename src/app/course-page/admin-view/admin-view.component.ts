@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, tap } from 'rxjs';
+
+type AdminCoursePageActiveRoute = 'lections' | 'assignments' | '';
 
 @Component({
   selector: 'admin-view',
@@ -7,9 +10,30 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./admin-view.component.scss'],
 })
 export class AdminViewComponent implements OnInit {
-  constructor(public router: Router, public route: ActivatedRoute) {}
+  activeRoute: AdminCoursePageActiveRoute;
 
-  ngOnInit(): void {}
+  constructor(private router: Router) {}
 
-  onLectionButtonClick() {}
+  ngOnInit(): void {
+    this.activeRoute = this.getActiveRoute(this.router.url);
+    this.router.events
+      .pipe(
+        filter((routeChange) => routeChange instanceof NavigationEnd),
+        tap(
+          (router: any) => (this.activeRoute = this.getActiveRoute(router.url))
+        )
+      )
+      .subscribe();
+  }
+  private getActiveRoute(url: string) {
+    const lastIndex = url.lastIndexOf('/');
+    const route = url.slice(lastIndex + 1);
+    if (route === 'lections') {
+      return 'lections';
+    } else if (route === 'assignments') {
+      return 'assignments';
+    } else {
+      return '';
+    }
+  }
 }

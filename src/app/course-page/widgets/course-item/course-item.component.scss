@@ -1,0 +1,10 @@
+:host {
+  flex-basis: 0 0 225px;
+
+  padding: 1.25rem;
+  border: 1px solid var(--text-color);
+  transition: all 150ms ease-out;
+  &:hover {
+    border-color: var(--primary-color);
+  }
+}

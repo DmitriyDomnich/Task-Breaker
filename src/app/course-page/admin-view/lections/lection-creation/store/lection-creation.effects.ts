@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeMap, of, switchMap, tap } from 'rxjs';
-import { PagePreviewService } from '../../page-preview.service';
+import { PagePreviewService } from '../../../../widgets/page-preview/page-preview.service';
 import { LectionCreationActions } from './lection-creation.actions';
 import { v4 as createId } from 'uuid';
 

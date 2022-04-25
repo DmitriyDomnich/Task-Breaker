@@ -1,22 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Observable, of, switchMap } from 'rxjs';
-import { Course } from '../shared/models/course.model';
-import { Role } from '../shared/models/role.model';
+import { Role } from 'src/app/shared/models/role.model';
+import { CoursePageService } from './course-page.service';
 
+export type CoursePageViewComponents = {
+  visitor: Type<any>;
+  student: Type<any>;
+  admin: Type<any>;
+};
 @Injectable({
   providedIn: 'root',
 })
-export class CoursePageService {
-  getCourseInfo(courseId: string): Observable<any> {
-    return this.db
-      .collection<Course>('courses')
-      .doc<Course>(courseId)
-      .get()
-      .pipe(map((snapshot) => ({ id: snapshot.id, ...snapshot.data() })));
+export class CourseViewsLoaderService {
+  constructor(private auth: AngularFireAuth, private db: AngularFirestore) {}
+
+  getComponentByRole(role: Role, components: CoursePageViewComponents) {
+    switch (role) {
+      case 'student':
+        return components.student;
+      case 'admin':
+        return components.admin;
+      default:
+        return components.visitor;
+    }
   }
-  getUserRoleForCourse(courseId: string): Observable<Role> {
+
+  getUserRoleForCourseId(courseId: string): Observable<Role> {
     return this.auth.user.pipe(
       switchMap((user) => {
         if (user) {
@@ -39,5 +50,4 @@ export class CoursePageService {
       })
     );
   }
-  constructor(private db: AngularFirestore, private auth: AngularFireAuth) {}
 }

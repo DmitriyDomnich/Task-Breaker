@@ -20,9 +20,13 @@ import {
   tap,
   toArray,
 } from 'rxjs';
-import { CreationPreview } from '../../models/creation-preview.model';
-import { GeneralInfo, LectionModel, Topic } from '../../models/lection.model';
-import { CrudApprovalService } from '../../widgets/creation-tools/creation-buttons/crud-approval.service';
+import { CreationPreview } from '../../../models/creation-preview.model';
+import {
+  GeneralInfo,
+  LectionModel,
+  Topic,
+} from '../../../models/lection.model';
+import { CrudApprovalService } from '../../../widgets/creation-tools/creation-buttons/crud-approval.service';
 
 @Injectable({ providedIn: 'root' })
 export class LectionCreationService {
@@ -66,6 +70,7 @@ export class LectionCreationService {
   }
 
   getTopics(courseId: string): Observable<Topic[]> {
+    console.log(courseId);
     return this.db
       .collection('courses')
       .doc(courseId)
@@ -99,6 +104,7 @@ export class LectionCreationService {
       description: this.currentLection.description,
       links: this.currentLection.links || [],
       editorData: this.currentLection.editorData ?? '',
+      published: new Date(Date.now()),
     };
     const lectionId = this.db.createId();
     const lectionRef = this.db

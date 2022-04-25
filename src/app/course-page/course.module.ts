@@ -4,19 +4,13 @@ import { CourseRoutingModule } from './course-routing.module';
 import { CourseComponent } from './course.component';
 import { CourseCoverDirective } from './course-cover.directive';
 import { SharedModule } from '../shared/shared.module';
-import { AdHostDirective } from './ad-host.directive';
 import { ToggleCourseDirective } from './toggle-course.directive';
 import { AdminViewModule } from './admin-view/admin-view.module';
 import { StudentViewModule } from './student-view/student-view.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
-  declarations: [
-    CourseComponent,
-    CourseCoverDirective,
-    AdHostDirective,
-    ToggleCourseDirective,
-  ],
+  declarations: [CourseComponent, CourseCoverDirective, ToggleCourseDirective],
   imports: [
     CommonModule,
     CourseRoutingModule,

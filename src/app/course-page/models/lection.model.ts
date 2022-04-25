@@ -9,6 +9,7 @@ export interface GeneralInfo {
   title: string;
   description?: string;
   topic: Topic | null;
+  published?: Date;
 }
 export interface LectionModel extends GeneralInfo {
   editorData?: string;

@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Observable, shareReplay, switchMap, tap } from 'rxjs';
 import { GeneralInfo, Topic } from 'src/app/course-page/models/lection.model';
-import { LectionCreationService } from '../../../admin-view/lection-creation/lection-creation.service';
+import { LectionCreationService } from '../../../admin-view/lections/lection-creation/lection-creation.service';
 import { v4 as createId } from 'uuid';
 
 @Component({
@@ -49,8 +49,9 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const courseIdRoute = this.route.root.children[0].children[0];
     this.lectionCreationService
-      .getTopics(this.route.parent!.snapshot.params['id'])
+      .getTopics(courseIdRoute.snapshot.params['id'])
       .pipe(tap((topics) => (this.topics = topics)))
       .subscribe();
     this.lectionCreationService.createLection$

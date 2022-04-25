@@ -1,11 +1,26 @@
-<nav>
-  <button
-    mat-raised-button
-    color="primary"
-    [relativeTo]="route"
-    [routerLink]="['lection-create']"
+<nav mat-align-tabs="center" mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a
+    [active]="activeRoute === ''"
+    (click)="activeRoute = ''"
+    mat-tab-link
+    [routerLink]="['.']"
+    >Feed</a
   >
-    Create lection
-  </button>
+  <a
+    [active]="activeRoute === 'lections'"
+    (click)="activeRoute = 'lections'"
+    mat-tab-link
+    [routerLink]="['lections']"
+    >Lections</a
+  >
+  <a
+    [active]="activeRoute === 'assignments'"
+    (click)="activeRoute = 'assignments'"
+    mat-tab-link
+    [routerLink]="['assignments']"
+    >Assignments</a
+  >
 </nav>
-<router-outlet></router-outlet>
+<mat-tab-nav-panel #tabPanel>
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>

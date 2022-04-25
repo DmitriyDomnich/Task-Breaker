@@ -1,5 +1,5 @@
 import { Directive, HostListener, Input, Renderer2 } from '@angular/core';
-import { DocViewerService } from 'src/app/course-page/doc-viewer.service';
+import { DocViewerService } from 'src/app/course-page/services/doc-viewer.service';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
 
 @Directive({

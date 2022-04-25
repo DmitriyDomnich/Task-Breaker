@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { LectionCreationService } from 'src/app/course-page/admin-view/lection-creation/lection-creation.service';
+import { LectionCreationService } from 'src/app/course-page/admin-view/lections/lection-creation/lection-creation.service';
 import { CreationPreview } from 'src/app/course-page/models/creation-preview.model';
 
 @Component({

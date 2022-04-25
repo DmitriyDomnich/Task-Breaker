@@ -14,7 +14,11 @@
   </ng-template>
 </ng-container>
 <ng-container *ngIf="loading; else notLoading">
-  <mat-spinner mode="indeterminate" [diameter]="40"></mat-spinner>
+  <mat-spinner
+    #spinner="matProgressSpinner"
+    mode="indeterminate"
+    [diameter]="40"
+  ></mat-spinner>
 </ng-container>
 <ng-template #notLoading>
   <button (click)="onCancel.emit()" color="warn" mat-fab>

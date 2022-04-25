@@ -1,0 +1,6 @@
+<button id="options" [matMenuTriggerFor]="menu" mat-mini-fab color="primary">
+  <span class="material-icons-outlined"> more_vert </span>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['create']">Create lection</button>
+</mat-menu>

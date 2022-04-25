@@ -10,10 +10,10 @@ import {
   creationItemsReducer,
 } from './store/lection-creation.reducer';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PagePreviewModule } from '../../widgets/page-preview/page-preview.module';
+import { PagePreviewModule } from '../../../widgets/page-preview/page-preview.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRippleModule } from '@angular/material/core';
-import { CreationToolsModule } from '../../widgets/creation-tools/creation-tools.module';
+import { CreationToolsModule } from '../../../widgets/creation-tools/creation-tools.module';
 import { MatInputModule } from '@angular/material/input';
 import { EditorCreationWayComponent } from './editor-creation-way/editor-creation-way.component';
 import { EffectsModule } from '@ngrx/effects';

@@ -28,6 +28,10 @@ $component-right-offset: 10px;
       color: var(--primary-color);
     }
   }
+  .loaded {
+    font-size: 38px;
+    color: var(--primary-color);
+  }
   &.loading {
     display: flex;
     justify-content: center;
