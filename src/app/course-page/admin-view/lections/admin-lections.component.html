@@ -4,3 +4,53 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item [routerLink]="['create']">Create lection</button>
 </mat-menu>
+<ng-container *ngIf="initialLections && topics; else loading">
+  <mat-form-field>
+    <mat-label>Filter by topic</mat-label>
+    <mat-select
+      (selectionChange)="onTopicFilterChange($event.value)"
+      [(value)]="chosenTopic"
+    >
+      <mat-option [value]="null">All topics</mat-option>
+      <mat-option *ngFor="let topic of topics" [value]="topic">
+        {{ topic.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <section>
+    <ng-container
+      *ngFor="
+        let lection of filteredLections;
+        trackBy: trackFilteredLectionsById
+      "
+    >
+      <course-item
+        [loading]="lection.isLoading!"
+        (mouseenter)="options.opacity = 1"
+        (mouseleave)="checkCursor($event, options)"
+        [courseItemGeneralInfo]="lection"
+      >
+        <course-item-options #options="courseItemOptions">
+          <button
+            (menuClosed)="options.opacity = 0"
+            mat-mini-fab
+            [matMenuTriggerFor]="optionsMenu"
+          >
+            <span class="material-icons-outlined"> more_vert </span>
+          </button>
+          <mat-menu #optionsMenu="matMenu">
+            <button
+              (click)="deleteLection(lection); lection.isLoading = true"
+              mat-menu-item
+            >
+              Delete Lection
+            </button>
+          </mat-menu>
+        </course-item-options>
+      </course-item>
+    </ng-container>
+  </section>
+</ng-container>
+<ng-template #loading>
+  <mat-spinner [style.marginInline]="'auto'" mode="indeterminate"></mat-spinner>
+</ng-template>
