@@ -20,6 +20,7 @@ import {
   tap,
   toArray,
 } from 'rxjs';
+import { CoursePageService } from 'src/app/course-page/services/course-page.service';
 import { CreationPreview } from '../../../models/creation-preview.model';
 import {
   GeneralInfo,
@@ -39,7 +40,8 @@ export class LectionCreationService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private router: Router,
-    private crudApprovalService: CrudApprovalService
+    private crudApprovalService: CrudApprovalService,
+    private coursePageService: CoursePageService
   ) {}
 
   onLectionCreationApproval() {
@@ -71,21 +73,11 @@ export class LectionCreationService {
 
   getTopics(courseId: string): Observable<Topic[]> {
     console.log(courseId);
-    return this.db
-      .collection('courses')
-      .doc(courseId)
-      .collection<{ name: string }>('topics')
-      .get()
-      .pipe(
-        map((topicSnapshot) =>
-          topicSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name,
-          }))
-        ),
-        tap((topics) => (this.currentTopics = topics.slice()))
-      );
+    return this.coursePageService
+      .getTopics(courseId)
+      .pipe(tap((topics) => (this.currentTopics = topics.slice())));
   }
+
   private createLection() {
     const currentTopic = this.currentLection.topic;
 

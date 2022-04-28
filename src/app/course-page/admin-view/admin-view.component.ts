@@ -26,11 +26,9 @@ export class AdminViewComponent implements OnInit {
       .subscribe();
   }
   private getActiveRoute(url: string) {
-    const lastIndex = url.lastIndexOf('/');
-    const route = url.slice(lastIndex + 1);
-    if (route === 'lections') {
+    if (url.includes('lections')) {
       return 'lections';
-    } else if (route === 'assignments') {
+    } else if (url.includes('aassignments')) {
       return 'assignments';
     } else {
       return '';

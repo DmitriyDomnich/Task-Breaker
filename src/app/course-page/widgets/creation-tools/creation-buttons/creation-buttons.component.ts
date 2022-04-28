@@ -4,12 +4,13 @@ import {
   EventEmitter,
   HostBinding,
   HostListener,
+  OnDestroy,
   OnInit,
   Output,
   Renderer2,
   ViewChild,
 } from '@angular/core';
-import { delay, map, tap } from 'rxjs';
+import { delay, map, Subscription, tap } from 'rxjs';
 import { CrudApprovalService } from './crud-approval.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { CrudApprovalService } from './crud-approval.service';
   templateUrl: './creation-buttons.component.html',
   styleUrls: ['./creation-buttons.component.scss'],
 })
-export class CreationButtonsComponent implements OnInit {
+export class CreationButtonsComponent implements OnInit, OnDestroy {
   @Output() onCancel = new EventEmitter();
   @Output() onApprove = new EventEmitter();
   @ViewChild('spinner', { read: ElementRef }) spinner: ElementRef<HTMLElement>;
@@ -25,6 +26,7 @@ export class CreationButtonsComponent implements OnInit {
   loading = false;
   closed = false;
   hovered = false;
+  approveSub: Subscription;
 
   @HostListener('mouseover') onHover() {
     if (!this.loading) {
@@ -58,7 +60,7 @@ export class CreationButtonsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.crudApprovalService.approved$
+    this.approveSub = this.crudApprovalService.approved$
       .pipe(
         map((_) => {
           const spanEl = <HTMLSpanElement>this.renderer.createElement('span');
@@ -80,5 +82,8 @@ export class CreationButtonsComponent implements OnInit {
     if (window.innerWidth < 650) {
       this.hovered = true;
     }
+  }
+  ngOnDestroy(): void {
+    this.approveSub.unsubscribe();
   }
 }

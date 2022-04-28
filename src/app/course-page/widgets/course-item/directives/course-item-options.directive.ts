@@ -1,10 +1,12 @@
-import { Directive } from '@angular/core';
+import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[courseItemOptions]'
+  selector: 'course-item-options',
+  exportAs: 'courseItemOptions',
 })
 export class CourseItemOptionsDirective {
+  constructor() {}
 
-  constructor() { }
-
+  @HostBinding('class') className = 'options';
+  @HostBinding('style.opacity') opacity = 0;
 }

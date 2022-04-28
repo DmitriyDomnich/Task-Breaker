@@ -6,6 +6,7 @@ export interface Topic {
 }
 
 export interface GeneralInfo {
+  id?: string;
   title: string;
   description?: string;
   topic: Topic | null;

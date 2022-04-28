@@ -1,10 +1,65 @@
 :host {
-  flex-basis: 0 0 225px;
-
+  border-radius: 5px;
+  font-size: 20px;
   padding: 1.25rem;
-  border: 1px solid var(--text-color);
+  cursor: pointer;
+  border: 2.25px solid var(--text-color);
   transition: all 150ms ease-out;
+  position: relative;
+  & ::ng-deep .options {
+    transition: opacity 250ms ease-out;
+    position: absolute;
+    left: 0.35rem;
+    bottom: 0.4rem;
+    & button {
+      width: 30px;
+      height: 30px;
+      line-height: 18px;
+      & span:first-child {
+        font-size: 14px;
+        padding: 0;
+      }
+    }
+  }
   &:hover {
     border-color: var(--primary-color);
+  }
+  .spinner {
+    position: relative;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  h3 {
+    font-weight: bold;
+    font-size: larger;
+    padding-block: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  main {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+  }
+  time {
+    font-size: small;
+    position: absolute;
+    bottom: 0.25rem;
+    right: 0.25rem;
+  }
+  #topic {
+    position: absolute;
+    color: #fff;
+    top: -1.15em;
+    text-align: center;
+    padding: 0.5rem 0.8rem;
+    width: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px 10px 0 0;
+    background-color: var(--accent-color);
   }
 }
