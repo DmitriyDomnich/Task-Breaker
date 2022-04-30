@@ -44,6 +44,9 @@
     -webkit-line-clamp: 9;
     -webkit-box-orient: vertical;
   }
+  .deadline {
+    color: var(--warn-color);
+  }
   time {
     font-size: small;
     position: absolute;

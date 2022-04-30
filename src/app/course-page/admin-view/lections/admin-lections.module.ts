@@ -8,6 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { CourseItemModule } from '../../widgets/course-item/course-item.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AdminLectionsUpdateModule } from './admin-lections-update/admin-lections-update.module';
 
 @NgModule({
   declarations: [AdminLectionsComponent],
@@ -20,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatSelectModule,
     MatFormFieldModule,
     CourseItemModule,
+    AdminLectionsUpdateModule,
   ],
 })
 export class AdminLectionsModule {}

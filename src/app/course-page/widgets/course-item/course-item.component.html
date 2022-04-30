@@ -15,6 +15,10 @@
   <main>
     {{ courseItemGeneralInfo.description }}
   </main>
-  <time> 24.05.2022 </time>
-  <ng-content select="course-item-add-time"></ng-content>
+  <time>
+    24.05.2022
+    <span class="deadline"
+      ><ng-content select="course-item-add-time"></ng-content
+    ></span>
+  </time>
 </ng-template>

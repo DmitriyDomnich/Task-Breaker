@@ -45,8 +45,12 @@
             >
               Delete Lection
             </button>
+            <button [routerLink]="['update']" mat-menu-item>
+              Update Lection
+            </button>
           </mat-menu>
         </course-item-options>
+        <course-item-add-time> {{ lection.published }} </course-item-add-time>
       </course-item>
     </ng-container>
   </section>

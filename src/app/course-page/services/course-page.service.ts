@@ -26,6 +26,7 @@ export class CoursePageService {
           snapshot.docs.map((docSnapshot) => ({
             id: docSnapshot.id,
             ...docSnapshot.data(),
+            published: (<any>docSnapshot.data()).published.seconds, // ut : {nanoseconds: number, seconds: number}
           }))
         )
       );

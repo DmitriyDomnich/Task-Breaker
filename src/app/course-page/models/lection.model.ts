@@ -10,7 +10,7 @@ export interface GeneralInfo {
   title: string;
   description?: string;
   topic: Topic | null;
-  published?: Date;
+  published?: Date | number;
 }
 export interface LectionModel extends GeneralInfo {
   editorData?: string;

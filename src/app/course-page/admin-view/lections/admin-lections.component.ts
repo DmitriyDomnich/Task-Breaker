@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest, Subscription, switchMap } from 'rxjs';
 import { GeneralInfo, Topic } from '../../models/lection.model';
 import { CoursePageService } from '../../services/course-page.service';
@@ -37,7 +37,6 @@ export class AdminLectionsComponent implements OnInit {
       optionsMenu.opacity = 0;
     }
   }
-
   deleteLection(lection: LoadingLection) {
     this.coursePageService.deleteLection(this.courseId, lection.id!).subscribe({
       complete: () => {
@@ -63,6 +62,7 @@ export class AdminLectionsComponent implements OnInit {
 
   constructor(
     private coursePageService: CoursePageService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -78,6 +78,7 @@ export class AdminLectionsComponent implements OnInit {
         })
       )
       .subscribe(([lections, topics]) => {
+        console.log(lections);
         this.initialLections = lections;
         this.filteredLections = lections.slice();
 
