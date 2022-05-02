@@ -4,7 +4,7 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item [routerLink]="['create']">Create lection</button>
 </mat-menu>
-<ng-container *ngIf="initialLections && topics; else loading">
+<ng-container *ngIf="data$ | async as data; else loading">
   <mat-form-field>
     <mat-label>Filter by topic</mat-label>
     <mat-select
@@ -12,20 +12,17 @@
       [(value)]="chosenTopic"
     >
       <mat-option [value]="null">All topics</mat-option>
-      <mat-option *ngFor="let topic of topics" [value]="topic">
+      <mat-option *ngFor="let topic of data.topics" [value]="topic">
         {{ topic.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
   <section>
     <ng-container
-      *ngFor="
-        let lection of filteredLections;
-        trackBy: trackFilteredLectionsById
-      "
+      *ngFor="let lection of data.lections; trackBy: trackFilteredLectionsById"
     >
       <course-item
-        [loading]="lection.isLoading!"
+        [loading]="lection.isLoading"
         (mouseenter)="options.opacity = 1"
         (mouseleave)="checkCursor($event, options)"
         [courseItemGeneralInfo]="lection"
@@ -39,13 +36,14 @@
             <span class="material-icons-outlined"> more_vert </span>
           </button>
           <mat-menu #optionsMenu="matMenu">
-            <button
-              (click)="deleteLection(lection); lection.isLoading = true"
-              mat-menu-item
-            >
+            <button (click)="deleteLection(lection)" mat-menu-item>
               Delete Lection
             </button>
-            <button [routerLink]="['update']" mat-menu-item>
+            <button
+              [routerLink]="['update']"
+              [queryParams]="{ lectionId: lection.id }"
+              mat-menu-item
+            >
               Update Lection
             </button>
           </mat-menu>

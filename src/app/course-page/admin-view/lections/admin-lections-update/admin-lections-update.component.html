@@ -1,1 +1,8 @@
-<p>admin-lections-update works!</p>
+<ng-container
+  *ngTemplateOutlet="content; context: { $implicit: lection$ | async }"
+></ng-container>
+<ng-template #content let-lection>
+  <pre>
+    {{ lection | json }}
+  </pre>
+</ng-template>

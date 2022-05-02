@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, shareReplay, switchMap, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { GeneralInfo, Topic } from 'src/app/course-page/models/lection.model';
 import { LectionCreationService } from '../../../admin-view/lections/lection-creation/lection-creation.service';
 import { v4 as createId } from 'uuid';

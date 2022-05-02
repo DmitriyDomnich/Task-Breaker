@@ -8,7 +8,7 @@ import { GeneralInfo } from '../../models/lection.model';
 })
 export class CourseItemComponent implements OnInit {
   @Input() courseItemGeneralInfo: GeneralInfo;
-  @Input() loading: boolean | undefined = false;
+  @Input() loading: boolean | null;
 
   constructor() {}
 

@@ -1,13 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest, Subscription, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { combineLatestWith, map, Observable, tap } from 'rxjs';
 import { GeneralInfo, Topic } from '../../models/lection.model';
-import { CoursePageService } from '../../services/course-page.service';
 import { CourseItemOptionsDirective } from '../../widgets/course-item/directives/course-item-options.directive';
+import { AdminViewActions } from '../store/admin-view.actions';
+import { AdminViewState } from '../store/admin-view.reducer';
+import { selectLections, selectTopics } from '../store/admin-view.selectors';
 
-interface LoadingLection extends GeneralInfo {
-  isLoading?: boolean;
+export interface LoadingLection extends GeneralInfo {
+  isLoading: boolean;
 }
+type Data = {
+  lections: readonly LoadingLection[];
+  topics: readonly Topic[];
+};
 
 @Component({
   selector: 'admin-lections',
@@ -15,11 +22,10 @@ interface LoadingLection extends GeneralInfo {
   styleUrls: ['./admin-lections.component.scss'],
 })
 export class AdminLectionsComponent implements OnInit {
-  dataSub: Subscription;
-  initialLections: LoadingLection[];
-  filteredLections: LoadingLection[];
+  lections$ = this.store.select(selectLections);
+  topics$ = this.store.select(selectTopics);
+  data$: Observable<Data>;
 
-  topics: Topic[];
   chosenTopic: string | null = null;
   courseId: string;
 
@@ -38,59 +44,30 @@ export class AdminLectionsComponent implements OnInit {
     }
   }
   deleteLection(lection: LoadingLection) {
-    this.coursePageService.deleteLection(this.courseId, lection.id!).subscribe({
-      complete: () => {
-        const indexToDelete = this.initialLections.indexOf(
-          this.initialLections.find(
-            (initialLection) => initialLection.id === lection.id
-          )!
-        );
-        this.initialLections.splice(indexToDelete, 1);
-
-        this.filteredLections = this.filterLections(
-          (<any>this.chosenTopic)?.name
-        );
-        lection.isLoading = false;
-      },
-    });
+    this.store.dispatch(
+      AdminViewActions.deleteLectionById({ id: lection.id! })
+    );
   }
 
   onTopicFilterChange(matSelectChange: Topic | null) {
-    const lectionName: any = matSelectChange?.name;
-    this.filteredLections = this.filterLections(lectionName);
+    const topicName: any = matSelectChange?.name || null;
+    this.store.dispatch(
+      AdminViewActions.changeTopicToFilter({ topicToFilter: topicName })
+    );
   }
 
   constructor(
-    private coursePageService: CoursePageService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<AdminViewState>
   ) {}
 
   ngOnInit(): void {
-    this.dataSub = this.route.root.children[0].children[0].paramMap
-      .pipe(
-        switchMap((param) => {
-          this.courseId = param.get('id')!;
-          return combineLatest([
-            this.coursePageService.getLections(this.courseId),
-            this.coursePageService.getTopics(this.courseId),
-          ]);
-        })
-      )
-      .subscribe(([lections, topics]) => {
-        console.log(lections);
-        this.initialLections = lections;
-        this.filteredLections = lections.slice();
-
-        this.topics = topics;
-      });
-  }
-  ngOnDestroy(): void {
-    this.dataSub.unsubscribe();
-  }
-  private filterLections(topic: null | any) {
-    return topic
-      ? this.initialLections.filter((lection) => lection.topic === topic)
-      : this.initialLections;
+    this.data$ = this.lections$.pipe(
+      combineLatestWith(this.topics$),
+      map(([lections, topics]) => ({
+        lections,
+        topics,
+      }))
+    );
   }
 }

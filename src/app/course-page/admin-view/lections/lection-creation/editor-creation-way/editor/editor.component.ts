@@ -1,7 +1,6 @@
 import {
   Component,
   EventEmitter,
-  HostBinding,
   OnInit,
   Output,
   ViewEncapsulation,

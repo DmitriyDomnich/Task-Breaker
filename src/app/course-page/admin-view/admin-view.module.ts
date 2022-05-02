@@ -5,6 +5,11 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { LectionCreationModule } from './lections/lection-creation/lection-creation.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { adminViewReducer } from './store/admin-view.reducer';
+import { AdminViewEffects } from './store/admin-view.effects';
+import { adminViewFeatureKey } from './store/admin-view.selectors';
 
 @NgModule({
   declarations: [AdminViewComponent],
@@ -14,6 +19,8 @@ import { LectionCreationModule } from './lections/lection-creation/lection-creat
     MatButtonModule,
     MatTabsModule,
     LectionCreationModule,
+    StoreModule.forFeature(adminViewFeatureKey, adminViewReducer),
+    EffectsModule.forFeature([AdminViewEffects]),
   ],
 })
 export class AdminViewModule {}

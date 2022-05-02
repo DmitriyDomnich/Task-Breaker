@@ -7,6 +7,7 @@ import { AfterViewInit, Directive, ElementRef } from '@angular/core';
 export class CourseItemAddTimeDirective implements AfterViewInit {
   constructor(private elRef: ElementRef<HTMLElement>) {}
   ngAfterViewInit(): void {
+    console.log(this.elRef.nativeElement.innerText);
     const seconds = +this.elRef.nativeElement.innerText * 1000;
     this.elRef.nativeElement.innerText = ` - ${formatDate(
       seconds,

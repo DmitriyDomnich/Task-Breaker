@@ -4,12 +4,13 @@ import {
   UserCoursesState,
 } from './user-courses.reducer';
 
-export const selectUserCoursesFeatureKey =
-  createFeatureSelector<UserCoursesState>(userCoursesFeatureKey);
+export const selectUserCoursesFeature = createFeatureSelector<UserCoursesState>(
+  userCoursesFeatureKey
+);
 
 // true - public, false - private
 export const selectUserCourses = (filter: boolean | null) =>
-  createSelector(selectUserCoursesFeatureKey, ({ courses }) => {
+  createSelector(selectUserCoursesFeature, ({ courses }) => {
     if (filter !== null) {
       return courses.filter((course) => course.isPublic === filter);
     }

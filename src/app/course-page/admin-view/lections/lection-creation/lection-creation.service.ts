@@ -6,10 +6,10 @@ import {
   AngularFireUploadTask,
 } from '@angular/fire/compat/storage';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import {
   from,
   iif,
-  map,
   mergeAll,
   mergeMap,
   Observable,
@@ -28,6 +28,8 @@ import {
   Topic,
 } from '../../../models/lection.model';
 import { CrudApprovalService } from '../../../widgets/creation-tools/creation-buttons/crud-approval.service';
+import { AdminViewActions } from '../../store/admin-view.actions';
+import { AdminViewState } from '../../store/admin-view.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class LectionCreationService {
@@ -41,7 +43,8 @@ export class LectionCreationService {
     private storage: AngularFireStorage,
     private router: Router,
     private crudApprovalService: CrudApprovalService,
-    private coursePageService: CoursePageService
+    private coursePageService: CoursePageService,
+    private store: Store<AdminViewState>
   ) {}
 
   onLectionCreationApproval() {
@@ -118,7 +121,11 @@ export class LectionCreationService {
         })
       ),
       lectionRef.set(lection)
-    ).subscribe((_) => this.crudApprovalService.crudApproved());
+    ).subscribe((_) => {
+      lection.published = (lection.published.getTime() / 1000).toFixed();
+      this.store.dispatch(AdminViewActions.addLection(lection));
+      this.crudApprovalService.crudApproved();
+    });
   }
   private getFileLinks(courseId: string, lectionId: string, files: File[]) {
     const filesStorageRefs: Array<AngularFireStorageReference> = [];

@@ -1,26 +1,23 @@
-<nav mat-align-tabs="center" mat-tab-nav-bar [tabPanel]="tabPanel">
-  <a
-    [active]="activeRoute === ''"
-    (click)="activeRoute = ''"
-    mat-tab-link
-    [routerLink]="['.']"
-    >Feed</a
-  >
-  <a
-    [active]="activeRoute === 'lections'"
-    (click)="activeRoute = 'lections'"
-    mat-tab-link
-    [routerLink]="['lections']"
-    >Lections</a
-  >
-  <a
-    [active]="activeRoute === 'assignments'"
-    (click)="activeRoute = 'assignments'"
-    mat-tab-link
-    [routerLink]="['assignments']"
-    >Assignments</a
-  >
-</nav>
-<mat-tab-nav-panel #tabPanel>
-  <router-outlet></router-outlet>
-</mat-tab-nav-panel>
+<ng-container
+  *ngTemplateOutlet="view; context: { $implicit: routerEvents$ | async }"
+></ng-container>
+<ng-template #view let-activeRoute>
+  <nav mat-align-tabs="center" mat-tab-nav-bar [tabPanel]="tabPanel">
+    <a [active]="activeRoute === ''" mat-tab-link [routerLink]="['.']">Feed</a>
+    <a
+      [active]="activeRoute === 'lections'"
+      mat-tab-link
+      [routerLink]="['lections']"
+      >Lections</a
+    >
+    <a
+      [active]="activeRoute === 'assignments'"
+      mat-tab-link
+      [routerLink]="['assignments']"
+      >Assignments</a
+    >
+  </nav>
+  <mat-tab-nav-panel #tabPanel>
+    <router-outlet></router-outlet>
+  </mat-tab-nav-panel>
+</ng-template>
